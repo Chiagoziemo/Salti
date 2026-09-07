@@ -1,10 +1,17 @@
-import type { ReactNode } from 'react';
+import type { ElementType, ReactNode } from 'react';
 import { THEME_CLASSES, type Theme } from '../../theme';
 
 export type FooterColumn = {
   title: string;
   links: { label: string; href: string }[];
 };
+
+/** Minimal shape any router's link component (or the plain `'a'` default) can satisfy — see `linkComponent` on `FooterProps`. */
+export type FooterLinkComponent = ElementType<{
+  href: string;
+  className?: string;
+  children?: ReactNode;
+}>;
 
 export type FooterProps = {
   logo?: ReactNode;
@@ -25,10 +32,25 @@ export type FooterProps = {
    * directly confirmed. Flag to design if it looks wrong on gold/forest.
    */
   theme?: Theme;
+  /**
+   * Component to render column links with, taking `href` (not `to` — keeps
+   * this library router-agnostic). Defaults to a plain `<a>`, which causes
+   * a full page reload in a single-page app. Pass an adapter around your
+   * router's Link for client-side navigation — see `NavProps.linkComponent`.
+   */
+  linkComponent?: FooterLinkComponent;
   className?: string;
 };
 
-export function Footer({ logo, columns, copyright, variant = 'default', theme = 'dark', className }: FooterProps) {
+export function Footer({
+  logo,
+  columns,
+  copyright,
+  variant = 'default',
+  theme = 'dark',
+  linkComponent: LinkComponent = 'a',
+  className,
+}: FooterProps) {
   const t = THEME_CLASSES[theme];
 
   return (
@@ -43,9 +65,9 @@ export function Footer({ logo, columns, copyright, variant = 'default', theme = 
                 <ul className="flex flex-col gap-2">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <a href={link.href} className="font-ui hover:underline">
+                      <LinkComponent href={link.href} className="font-ui hover:underline">
                         {link.label}
-                      </a>
+                      </LinkComponent>
                     </li>
                   ))}
                 </ul>

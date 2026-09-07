@@ -46,6 +46,11 @@ places.
    `dark` default once a page has a real theme.** Use `THEME_CLASSES` from
    `src/theme.ts` for any new themed surface rather than hardcoding a hex
    per theme inline — it's the single place all 3 themes' colors live.
+8. **In a single-page app, pass `linkComponent` to `Nav` and `Footer`.**
+   Both default to a plain `<a>` (full page reload) to keep the library
+   router-agnostic — it takes `href`, not a router's `to`. Write a small
+   adapter once per app (see `demo/Layout.tsx`'s `RouterLink`) and reuse it;
+   don't leave the default in place and accept full reloads by omission.
 
 ## Color
 

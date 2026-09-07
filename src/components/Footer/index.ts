@@ -1,1 +1,1 @@
-export { Footer, type FooterProps, type FooterColumn } from './Footer';
+export { Footer, type FooterProps, type FooterColumn, type FooterLinkComponent } from './Footer';

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Nav, Footer, ThemeSwitcher, THEME_CLASSES, type Theme } from '../src';
@@ -6,6 +7,29 @@ function LogoMark({ theme }: { theme: Theme }) {
   return (
     <Link to="/" className={`font-display text-xl font-bold ${THEME_CLASSES[theme].text}`}>
       Salti
+    </Link>
+  );
+}
+
+/**
+ * Adapts React Router's `Link` (which takes `to`) to the `href`-based shape
+ * Nav/Footer expect, so their internal links do client-side navigation
+ * instead of a full page reload. The design system stays router-agnostic;
+ * this adapter is the only place that knows about React Router.
+ */
+function RouterLink({
+  href,
+  children,
+  ...props
+}: {
+  href: string;
+  className?: string;
+  'aria-current'?: 'page';
+  children?: ReactNode;
+}) {
+  return (
+    <Link to={href} {...props}>
+      {children}
     </Link>
   );
 }
@@ -29,7 +53,7 @@ export default function Layout() {
 
   return (
     <div className={`flex min-h-screen flex-col ${t.bg} ${t.text}`}>
-      <Nav theme={theme} logo={<LogoMark theme={theme} />} items={items} cartCount={0} />
+      <Nav theme={theme} logo={<LogoMark theme={theme} />} items={items} cartCount={0} linkComponent={RouterLink} />
       <div className="flex justify-end px-[80px] pb-4">
         <ThemeSwitcher value={theme} onChange={setTheme} />
       </div>
@@ -41,6 +65,7 @@ export default function Layout() {
       <Footer
         theme={theme}
         logo={<LogoMark theme={theme} />}
+        linkComponent={RouterLink}
         copyright={`© ${new Date().getFullYear()} Salti. All rights reserved.`}
         columns={[
           {

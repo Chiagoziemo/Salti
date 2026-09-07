@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ElementType, ReactNode } from 'react';
 import { HomeIcon, ShoppingBasketIcon } from '../Icon';
 import { THEME_CLASSES, type Theme } from '../../theme';
 
@@ -8,6 +8,14 @@ export type NavItem = {
   /** Home page shows exactly one active item at a time. */
   active?: boolean;
 };
+
+/** Minimal shape any router's link component (or the plain `'a'` default) can satisfy — see `linkComponent` on `NavProps`. */
+export type NavLinkComponent = ElementType<{
+  href: string;
+  className?: string;
+  'aria-current'?: 'page' | undefined;
+  children?: ReactNode;
+}>;
 
 export type NavProps = {
   /** Logo mark, rendered top-left. Color it per `theme` yourself — the file uses a dark logo on gold, light on dark/forest. */
@@ -22,6 +30,14 @@ export type NavProps = {
    * Figma Variable.
    */
   theme?: Theme;
+  /**
+   * Component to render nav items with, taking `href` (not `to` — keeps
+   * this library router-agnostic). Defaults to a plain `<a>`, which causes
+   * a full page reload in a single-page app. Pass an adapter around your
+   * router's Link (e.g. `({ href, ...props }) => <Link to={href} {...props} />`)
+   * for client-side navigation.
+   */
+  linkComponent?: NavLinkComponent;
   className?: string;
 };
 
@@ -31,7 +47,15 @@ export type NavProps = {
  * directly off the file; see DESIGN_SYSTEM.md for what's confirmed vs
  * approximated.
  */
-export function Nav({ logo, items, cartCount = 0, onCartClick, theme = 'dark', className }: NavProps) {
+export function Nav({
+  logo,
+  items,
+  cartCount = 0,
+  onCartClick,
+  theme = 'dark',
+  linkComponent: LinkComponent = 'a',
+  className,
+}: NavProps) {
   const t = THEME_CLASSES[theme];
 
   return (
@@ -45,7 +69,7 @@ export function Nav({ logo, items, cartCount = 0, onCartClick, theme = 'dark', c
         )}
       >
         {items.map((item) => (
-          <a
+          <LinkComponent
             key={item.label}
             href={item.href}
             aria-current={item.active ? 'page' : undefined}
@@ -59,7 +83,7 @@ export function Nav({ logo, items, cartCount = 0, onCartClick, theme = 'dark', c
           >
             {item.active && item.label.toLowerCase() === 'home' && <HomeIcon size={16} />}
             {item.label}
-          </a>
+          </LinkComponent>
         ))}
       </nav>
 

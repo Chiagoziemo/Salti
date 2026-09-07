@@ -1,1 +1,1 @@
-export { Nav, type NavProps, type NavItem } from './Nav';
+export { Nav, type NavProps, type NavItem, type NavLinkComponent } from './Nav';
