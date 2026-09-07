@@ -62,3 +62,21 @@ export function MinusIcon({ size = 24, ...props }: IconProps) {
     </svg>
   );
 }
+
+/** `chevron-down-sharp` rotated +90° — Home hero gallery's "previous" control (node 78:551). */
+export function ChevronLeftIcon({ size = 24, ...props }: IconProps) {
+  return (
+    <svg {...base(size)} {...props}>
+      <path d="m15 6-6 6 6 6" />
+    </svg>
+  );
+}
+
+/** `chevron-down-sharp` rotated -90° — Home hero gallery's "next" control (node 78:554). */
+export function ChevronRightIcon({ size = 24, ...props }: IconProps) {
+  return (
+    <svg {...base(size)} {...props}>
+      <path d="m9 6 6 6-6 6" />
+    </svg>
+  );
+}

@@ -3,6 +3,7 @@ export { Nav, type NavProps, type NavItem } from './components/Nav';
 export { Footer, type FooterProps, type FooterColumn } from './components/Footer';
 export { SizeSelector, type SizeSelectorProps } from './components/SizeSelector';
 export { ProductGallery, type ProductGalleryProps } from './components/ProductGallery';
+export { HeroGallery, type HeroGalleryProps } from './components/HeroGallery';
 export { ThemeSwitcher, type ThemeSwitcherProps } from './components/ThemeSwitcher';
 export {
   HomeIcon,
@@ -10,6 +11,8 @@ export {
   CloseIcon,
   ArrowForwardIcon,
   MinusIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   type IconProps,
 } from './components/Icon';
 export { THEME_ORDER, THEME_LABELS, THEME_CLASSES, THEME_SWATCH_CLASS, type Theme } from './theme';

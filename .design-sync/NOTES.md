@@ -38,3 +38,12 @@
   ("Open questions for design") still apply here — nothing in this sync
   resolves them, it only builds on top of the `primary` ramp as the
   confirmed-live one.
+- `HeroGallery` (added after the Product Page pull) is not yet synced to
+  the Claude Design project as of this note — it exists in `src/` and is
+  used in `demo/pages/Home.tsx`, but the next design-sync run needs to pick
+  it up (rebuild → author a preview → grade → upload).
+- `HeroGallery`'s demo images (`public/images/IMG_*.jpg`) are real campaign
+  photography from a Drive folder the user shared ("Melody collab"), not
+  Figma exports — see the commit that added `public/images/` for
+  provenance. They depict a linen co-ord set, not the "ORGC Traditions
+  Crewneck" product on the Product Page — don't reuse them there.
