@@ -1,0 +1,10 @@
+{
+  "projectId": "824517a0-6e42-4eb9-9e13-301c21fbaa64",
+  "shape": "package",
+  "pkg": "@salti/design-system",
+  "globalName": "SaltiDesignSystem",
+  "overrides": {
+    "Nav": { "cardMode": "column" }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

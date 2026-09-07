@@ -1,0 +1,107 @@
+/*
+ * Salti design tokens — generated from design-tokens/tokens.json.
+ * Source: Figma, Project Salti, canvas "Designs & Assets" (0:1).
+ * Edit tokens.json first, then regenerate this file — don't hand-edit values here.
+ */
+
+:root {
+  /* brand color — confirmed bound on live page frames */
+  --color-primary-base: #3a5448;
+  --color-primary-100: #b6f1d5;
+  --color-primary-200: #8fc8ae;
+  --color-primary-300: #719f8a;
+  --color-primary-400: #557968;
+  --color-primary-500: #3a5448;
+  --color-primary-600: #21322a;
+  --color-primary-700: #0a130f;
+
+  --color-secondary-100: #dcf7ea;
+  --color-secondary-200: #a0ddc3;
+  --color-secondary-300: #82b49e;
+  --color-secondary-400: #648c7b;
+  --color-secondary-500: #486659;
+  --color-secondary-600: #2e433a;
+  --color-secondary-700: #16221d;
+
+  --color-tertiary-100: #dbf7e9;
+  --color-tertiary-200: #9ddcbd;
+  --color-tertiary-300: #7fb299;
+  --color-tertiary-400: #628b77;
+  --color-tertiary-500: #466556;
+  --color-tertiary-600: #2c4237;
+  --color-tertiary-700: #14211b;
+
+  --color-grey-100: #f1f0f0; /* confirmed live value — does not match either Color Palette swatch board */
+  --color-grey-200: #b7bdbb; /* unverified against a live binding, see tokens.json */
+  --color-grey-300: #919795;
+  --color-grey-400: #6e7270;
+  --color-grey-500: #4c4f4e;
+  --color-grey-600: #2d2f2e;
+  --color-grey-700: #101111;
+
+  --color-theme-background: #ffffff;
+
+  /* alt (gold/olive) ramp — documented, not confirmed in use. Prefixed so it can't be reached for accidentally. */
+  --color-alt-primary-100: #f2e16a;
+  --color-alt-primary-200: #c7b956;
+  --color-alt-primary-300: #9e9343;
+  --color-alt-primary-400: #776e30;
+  --color-alt-primary-500: #524b1f;
+  --color-alt-primary-600: #2f2b0f;
+  --color-alt-primary-700: #131104;
+  --color-alt-secondary-100: #fef1b8;
+  --color-alt-secondary-200: #ecd42a;
+  --color-alt-secondary-300: #c0ad20;
+  --color-alt-secondary-400: #978717;
+  --color-alt-secondary-500: #6f630e;
+  --color-alt-secondary-600: #494106;
+  --color-alt-secondary-700: #272202;
+  --color-alt-tertiary-100: #f8eeaa;
+  --color-alt-tertiary-200: #d0c67e;
+  --color-alt-tertiary-300: #a79f64;
+  --color-alt-tertiary-400: #807a4c;
+  --color-alt-tertiary-500: #5b5634;
+  --color-alt-tertiary-600: #38351e;
+  --color-alt-tertiary-700: #19170b;
+  --color-alt-grey-100: #e0dfd9;
+  --color-alt-grey-200: #b8b7b2;
+  --color-alt-grey-300: #92918d;
+  --color-alt-grey-400: #6d6d6a;
+  --color-alt-grey-500: #4b4a48;
+  --color-alt-grey-600: #2b2b29;
+  --color-alt-grey-700: #111110;
+
+  /* spacing */
+  --space-1: 8px;
+  --space-5: 32px;
+  --site-gutter: 32px;
+  --site-margin: 48px;
+  --section-space-none: 0px;
+  --section-space-main: 112px;
+  --control-height-2-5: 40px;
+
+  /* layout */
+  --column-width-3: 324px;
+  --column-width-9: 1004px;
+
+  /* border */
+  --border-width-main: 1.5px;
+
+  /* typography — de facto scale, reverse-engineered from live text layers */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-ui: 'DM Sans', system-ui, sans-serif;
+  --font-nav: 'Work Sans', system-ui, sans-serif;
+
+  --text-display-size: 48px;
+  --text-display-weight: 800;
+  --text-display-line-height: 1.2;
+  --text-display-tracking: -0.96px;
+
+  --text-ui-size: 16px;
+  --text-ui-weight: 500;
+  --text-ui-line-height: 1.2;
+
+  --text-nav-size: 12.24px;
+  --text-nav-weight: 400;
+  --text-nav-line-height: 14.688px;
+}
