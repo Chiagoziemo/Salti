@@ -1,38 +1,32 @@
-import { Nav } from '@salti/design-system';
+import { Nav, THEME_CLASSES, type Theme } from '@salti/design-system';
 
-const Logo = () => <span style={{ color: 'white', fontWeight: 700, fontFamily: 'serif' }}>Salti</span>;
-
-const Stage = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ background: '#0a130f', padding: '24px 0' }}>{children}</div>
+const Logo = ({ theme }: { theme: Theme }) => (
+  <span className={`font-display font-bold ${THEME_CLASSES[theme].text}`}>Salti</span>
 );
 
-export function Default() {
+const items = [
+  { label: 'home', href: '#', active: true },
+  { label: 'about', href: '#' },
+  { label: 'contact', href: '#' },
+];
+
+function Stage({ theme }: { theme: Theme }) {
+  const t = THEME_CLASSES[theme];
   return (
-    <Stage>
-      <Nav
-        logo={<Logo />}
-        items={[
-          { label: 'home', href: '#', active: true },
-          { label: 'about', href: '#' },
-          { label: 'contact', href: '#' },
-        ]}
-        cartCount={2}
-      />
-    </Stage>
+    <div className={`${t.bg} py-6`}>
+      <Nav theme={theme} logo={<Logo theme={theme} />} items={items} cartCount={2} />
+    </div>
   );
 }
 
-export function AboutActive() {
-  return (
-    <Stage>
-      <Nav
-        logo={<Logo />}
-        items={[
-          { label: 'home', href: '#' },
-          { label: 'about', href: '#', active: true },
-          { label: 'contact', href: '#' },
-        ]}
-      />
-    </Stage>
-  );
+export function DarkTheme() {
+  return <Stage theme="dark" />;
+}
+
+export function GoldTheme() {
+  return <Stage theme="gold" />;
+}
+
+export function ForestTheme() {
+  return <Stage theme="forest" />;
 }

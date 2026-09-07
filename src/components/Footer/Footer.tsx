@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { THEME_CLASSES, type Theme } from '../../theme';
 
 export type FooterColumn = {
   title: string;
@@ -17,23 +18,32 @@ export type FooterProps = {
    * treating this mapping as final — see DESIGN_SYSTEM.md.
    */
   variant?: 'default' | 'compact';
+  /**
+   * Which of the 3 real site themes this footer renders on — see
+   * `../../theme.ts`. Unlike Nav, no footer was sampled across all 3 theme
+   * sections, so this mapping (page bg + text per theme) is inferred, not
+   * directly confirmed. Flag to design if it looks wrong on gold/forest.
+   */
+  theme?: Theme;
   className?: string;
 };
 
-export function Footer({ logo, columns, copyright, variant = 'default', className }: FooterProps) {
+export function Footer({ logo, columns, copyright, variant = 'default', theme = 'dark', className }: FooterProps) {
+  const t = THEME_CLASSES[theme];
+
   return (
-    <footer className={['bg-primary-700 px-[80px] py-[56px]', className].filter(Boolean).join(' ')}>
+    <footer className={['px-[80px] py-[56px]', t.bg, t.text, className].filter(Boolean).join(' ')}>
       {variant === 'default' && (
         <div className="mb-10 flex flex-wrap items-start justify-between gap-12">
           <div className="w-[93px]">{logo}</div>
           <div className="flex flex-wrap gap-16">
             {columns.map((col) => (
               <div key={col.title} className="min-w-[120px]">
-                <h3 className="font-nav text-nav mb-3 uppercase tracking-wide text-grey-400">{col.title}</h3>
+                <h3 className="font-nav text-nav mb-3 uppercase tracking-wide opacity-60">{col.title}</h3>
                 <ul className="flex flex-col gap-2">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <a href={link.href} className="font-ui text-white/80 hover:text-white">
+                      <a href={link.href} className="font-ui hover:underline">
                         {link.label}
                       </a>
                     </li>
@@ -45,9 +55,9 @@ export function Footer({ logo, columns, copyright, variant = 'default', classNam
         </div>
       )}
 
-      <div className="flex items-center justify-between border-t border-white/10 pt-6">
+      <div className={['flex items-center justify-between border-t pt-6', t.divider].join(' ')}>
         {variant === 'compact' && <div className="w-[93px]">{logo}</div>}
-        <p className="font-nav text-nav text-grey-400">{copyright}</p>
+        <p className="font-nav text-nav opacity-60">{copyright}</p>
       </div>
     </footer>
   );

@@ -71,6 +71,37 @@
   --color-alt-grey-600: #2b2b29;
   --color-alt-grey-700: #111110;
 
+  /* site themes — 3 confirmed real, selectable themes (a literal 3-dot
+     switcher exists in the Figma nav). Figma's own section names for
+     "gold" and "forest" are both "Light Mode" despite "forest" being dark —
+     names below are ours. Only "dark" ties back to a Figma Variable
+     (primary/base); "gold" and "forest" are raw hex in the source file. */
+  --theme-dark-bg: #000000;
+  --theme-dark-text: #ffffff;
+  --theme-dark-accent-stripe: var(--color-primary-base);
+  --theme-dark-nav-surface: rgba(18, 18, 18, 0.8);
+  --theme-dark-nav-surface-border: #242222;
+  --theme-dark-icon-surface: #191919;
+  --theme-dark-icon-surface-border: #242222;
+
+  --theme-gold-bg: #ffd58b;
+  --theme-gold-text: #141414;
+  --theme-gold-nav-surface: rgba(255, 255, 255, 0.8);
+  --theme-gold-nav-surface-border: #101010;
+  --theme-gold-icon-surface: #ffffff;
+  --theme-gold-icon-surface-border: #242222;
+
+  --theme-forest-bg: #14261e;
+  --theme-forest-text: #ffffff;
+  --theme-forest-nav-surface: rgba(0, 0, 0, 0.5);
+  --theme-forest-nav-surface-border: #101010;
+  --theme-forest-icon-surface: rgba(0, 0, 0, 0.5);
+  --theme-forest-icon-surface-border: #242222;
+
+  /* shared across all 3 themes — the active nav pill never changes */
+  --theme-nav-item-active: #191919;
+  --theme-nav-item-active-border: #575757;
+
   /* spacing */
   --space-1: 8px;
   --space-5: 32px;

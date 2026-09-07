@@ -84,6 +84,32 @@ export default {
           700: 'var(--color-alt-grey-700)',
         },
         'theme-background': 'var(--color-theme-background)',
+
+        // Three real site themes — see design-tokens/tokens.json "themes" and DESIGN_SYSTEM.md.
+        'theme-dark-bg': 'var(--theme-dark-bg)',
+        'theme-dark-text': 'var(--theme-dark-text)',
+        'theme-dark-accent-stripe': 'var(--theme-dark-accent-stripe)',
+        'theme-dark-nav-surface': 'var(--theme-dark-nav-surface)',
+        'theme-dark-nav-surface-border': 'var(--theme-dark-nav-surface-border)',
+        'theme-dark-icon-surface': 'var(--theme-dark-icon-surface)',
+        'theme-dark-icon-surface-border': 'var(--theme-dark-icon-surface-border)',
+
+        'theme-gold-bg': 'var(--theme-gold-bg)',
+        'theme-gold-text': 'var(--theme-gold-text)',
+        'theme-gold-nav-surface': 'var(--theme-gold-nav-surface)',
+        'theme-gold-nav-surface-border': 'var(--theme-gold-nav-surface-border)',
+        'theme-gold-icon-surface': 'var(--theme-gold-icon-surface)',
+        'theme-gold-icon-surface-border': 'var(--theme-gold-icon-surface-border)',
+
+        'theme-forest-bg': 'var(--theme-forest-bg)',
+        'theme-forest-text': 'var(--theme-forest-text)',
+        'theme-forest-nav-surface': 'var(--theme-forest-nav-surface)',
+        'theme-forest-nav-surface-border': 'var(--theme-forest-nav-surface-border)',
+        'theme-forest-icon-surface': 'var(--theme-forest-icon-surface)',
+        'theme-forest-icon-surface-border': 'var(--theme-forest-icon-surface-border)',
+
+        'theme-nav-item-active': 'var(--theme-nav-item-active)',
+        'theme-nav-item-active-border': 'var(--theme-nav-item-active-border)',
       },
       spacing: {
         'space-1': 'var(--space-1)',

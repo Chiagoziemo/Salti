@@ -17,10 +17,12 @@ places.
    the equivalent value from `tokens.json`. If the value you need isn't
    tokenized yet, add it to `tokens.json` first, then use it — don't inline
    it "just this once."
-2. **Use the `primary` ramp, not `alt`.** The `alt` (gold/olive) ramp is
-   fully built in Figma but wasn't found bound to any live page — treat it as
-   reserved until a designer confirms where it's meant to apply. If a design
-   task calls for gold, ask before pulling from `alt`.
+2. **`alt` (the gold/olive shade *ramp*, 100–700) is still reserved — but the
+   flat gold *theme* color (`#ffd58b`) is real and shipping.** These are two
+   different things: `alt` is a multi-step palette exploration with no
+   confirmed live binding; `gold` is one of the three real site themes (see
+   below), used at a single flat value that doesn't match any step in
+   `alt`. Don't use `alt` without asking; do use the `gold` theme freely.
 3. **Don't touch the `reserved` ramps** (`quaternary` through `octonary`).
    They're unfilled placeholders in Figma (`#000000`, hidden) — there's
    nothing to implement yet.
@@ -39,6 +41,10 @@ places.
    `--color-primary-700` for the "Shop Our Collection" button: white fill,
    near-black text) rather than assuming the named component reflects
    current intent.
+7. **Pass `theme` explicitly to `Nav` and `Footer` — don't rely on the
+   `dark` default once a page has a real theme.** Use `THEME_CLASSES` from
+   `src/theme.ts` for any new themed surface rather than hardcoding a hex
+   per theme inline — it's the single place all 3 themes' colors live.
 
 ## Color
 
@@ -49,8 +55,35 @@ places.
 | `secondary/100–700`, `tertiary/100–700` | see `tokens.json` | confirmed present in the same bound ramp as primary; sampled indirectly |
 | `grey/100` | `#f1f0f0` | ✅ confirmed live — does **not** match either grey swatch in the Color Palette board |
 | `grey/200–700` | see `tokens.json` | ⚠️ taken from the Color Palette board, not verified against a live binding |
-| `alt/*` (gold/olive) | see `tokens.json` | ⚠️ fully built, not found bound anywhere |
-| `theme/background` | `#ffffff` | ✅ confirmed, used on every sampled frame in both theme sections |
+| `alt/*` (gold/olive shade ramp) | see `tokens.json` | ⚠️ fully built, not found bound anywhere — separate from the `gold` site theme below |
+| `theme/background` | `#ffffff` | ✅ confirmed, bound on every sampled frame regardless of site theme — likely the default canvas ground, not part of the 3 themes |
+
+## Site themes
+
+The file has **3 real, selectable site themes**, confirmed by a literal
+3-dot theme-switcher control in the Home page nav (Figma nodes
+`79:2080`/`79:1902`) and by each theme rendering a genuinely different
+background across the same Home/Product/Contact pages. Figma's own section
+names are misleading — **both `gold` and `forest` are labeled "Light Mode"
+in Figma, despite `forest` having a dark background.** The names below are
+ours, not Figma's; flag this to design so the file itself gets relabeled.
+
+| Theme | Figma section | Background | Text | Tokenized in Figma? |
+|---|---|---|---|---|
+| `dark` | "Dark Mode" (`79:639`) | `#000000` | white | ✅ partially — the announcement stripe uses `primary/base`; the page background itself is a flat `#000000` rect, not a variable |
+| `gold` | "Light Mode" (`79:1000`) | `#ffd58b` | `#141414` | ❌ raw hex |
+| `forest` | "Light Mode" (`79:2274`) | `#14261e` | white | ❌ raw hex |
+
+Nav surfaces (the floating pill + cart/icon cluster) also change per theme —
+see `src/theme.ts` `THEME_CLASSES` for the exact surface/border values used
+in each. The CTA button (white fill, near-black text) and the active nav
+pill (`#191919` / border `#575757`) are the same on **all three** themes —
+confirmed identical across all three sampled Home pages.
+
+Footer's per-theme colors in `src/components/Footer/Footer.tsx` are
+**inferred, not directly sampled** — no footer was checked across all 3
+theme sections. Flag to design if a footer looks wrong on `gold` or
+`forest`.
 
 ## Typography
 
@@ -73,16 +106,25 @@ Full values in `design-tokens/tokens.json`.
 
 ## Open questions for design (don't guess past these)
 
-- **Which color ramp is "Dark Mode" and which is "Light Mode"?** The two
-  Figma sections named for theme don't map cleanly onto the two color
-  ramps in the Color Palette board — the "Dark Mode" section's pages bind
-  the *green* `primary/base`, and the "Light Mode" sections don't bind any
-  `primary/secondary/tertiary` variable at all (only layout + `grey/100`).
-  Confirm the intended mapping before building a theme switcher.
-- **Two sections are both named "Salti Full Website – Light Mode"**
-  (Figma node ids `79:1000` and `79:2274`), same dimensions, same variable
-  footprint. Confirm which is current before using either as a build
-  reference — the other may be a stale working copy.
+- **The two "Light Mode" Figma sections should be renamed.** One (`79:1000`)
+  is genuinely light (cream/gold, dark text); the other (`79:2274`) is dark
+  (deep green, white text) despite sharing the same label. This is resolved
+  in code (see "Site themes" above, named `gold` and `forest`) but the
+  source file's labels are still wrong — worth fixing at the source so the
+  next person reading Figma directly isn't misled the way we were.
+- **Neither `gold` nor `forest`'s background color is tokenized in Figma** —
+  both are raw hex fills, unlike `dark`'s accent stripe. If this design
+  system is meant to be the source of truth going forward, consider
+  formalizing `#ffd58b` and `#14261e` as real Figma Variables so future
+  Figma work and this code don't drift apart.
 - **`grey/100` (`#f1f0f0`) doesn't match either grey swatch shown in the
   Color Palette board.** Confirm whether the palette board needs updating,
   or whether `grey/100` should be repointed to match one of the swatches.
+- **Footer wasn't sampled across all 3 themes** — its per-theme background/
+  text mapping in code is inferred from the pattern seen elsewhere, not
+  confirmed against an actual Figma footer frame in the `gold` or `forest`
+  sections.
+- **`ProductStepper` was only sampled on one theme's product page.** If
+  product pages differ by theme the way Home pages do, this component may
+  need theme-awareness too — not yet added since there's no evidence either
+  way.

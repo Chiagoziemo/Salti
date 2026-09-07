@@ -1,6 +1,8 @@
-import { Footer } from '@salti/design-system';
+import { Footer, THEME_CLASSES, type Theme } from '@salti/design-system';
 
-const Logo = () => <span style={{ color: 'white', fontWeight: 700, fontFamily: 'serif' }}>Salti</span>;
+const Logo = ({ theme }: { theme: Theme }) => (
+  <span className={`font-display font-bold ${THEME_CLASSES[theme].text}`}>Salti</span>
+);
 
 const columns = [
   {
@@ -20,11 +22,38 @@ const columns = [
 ];
 
 export function Default() {
-  return <Footer logo={<Logo />} columns={columns} copyright="© 2026 Salti. All rights reserved." />;
+  return <Footer logo={<Logo theme="dark" />} columns={columns} copyright="© 2026 Salti. All rights reserved." />;
 }
 
 export function Compact() {
   return (
-    <Footer variant="compact" logo={<Logo />} columns={columns} copyright="© 2026 Salti. All rights reserved." />
+    <Footer
+      variant="compact"
+      logo={<Logo theme="dark" />}
+      columns={columns}
+      copyright="© 2026 Salti. All rights reserved."
+    />
+  );
+}
+
+export function GoldTheme() {
+  return (
+    <Footer
+      theme="gold"
+      logo={<Logo theme="gold" />}
+      columns={columns}
+      copyright="© 2026 Salti. All rights reserved."
+    />
+  );
+}
+
+export function ForestTheme() {
+  return (
+    <Footer
+      theme="forest"
+      logo={<Logo theme="forest" />}
+      columns={columns}
+      copyright="© 2026 Salti. All rights reserved."
+    />
   );
 }
