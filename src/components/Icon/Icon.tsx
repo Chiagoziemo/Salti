@@ -54,20 +54,11 @@ export function ArrowForwardIcon({ size = 24, ...props }: IconProps) {
   );
 }
 
-/** `minus-sign` — stepper decrement control. */
+/** `minus-sign` — Size selector's collapse-toggle affordance (node 70:5868). */
 export function MinusIcon({ size = 24, ...props }: IconProps) {
   return (
     <svg {...base(size)} {...props}>
       <path d="M5 12h14" />
-    </svg>
-  );
-}
-
-/** Stepper increment control — pairs with MinusIcon; no `plus-sign` instance was found bound in the file, inferred symmetric. */
-export function PlusIcon({ size = 24, ...props }: IconProps) {
-  return (
-    <svg {...base(size)} {...props}>
-      <path d="M12 5v14M5 12h14" />
     </svg>
   );
 }

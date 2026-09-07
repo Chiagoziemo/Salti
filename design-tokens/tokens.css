@@ -135,4 +135,21 @@
   --text-nav-size: 12.24px;
   --text-nav-weight: 400;
   --text-nav-line-height: 14.688px;
+
+  /* Product Page typography — node 70:5793 */
+  --text-product-title-size: 24px;
+  --text-product-title-weight: 600;
+  --text-product-title-line-height: 1.2;
+
+  --text-price-size: 40px;
+  --text-price-weight: 500;
+  --text-price-line-height: 1.2;
+
+  --text-body-size: 18px;
+  --text-body-weight: 400;
+  --text-body-line-height: 1.2;
+
+  /* Product Page surfaces — node 70:5793, 70:5927 */
+  --product-surface: #141414;
+  --product-surface-selected: #232323;
 }

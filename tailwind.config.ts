@@ -110,6 +110,9 @@ export default {
 
         'theme-nav-item-active': 'var(--theme-nav-item-active)',
         'theme-nav-item-active-border': 'var(--theme-nav-item-active-border)',
+
+        'product-surface': 'var(--product-surface)',
+        'product-surface-selected': 'var(--product-surface-selected)',
       },
       spacing: {
         'space-1': 'var(--space-1)',
@@ -146,6 +149,18 @@ export default {
         nav: [
           'var(--text-nav-size)',
           { lineHeight: 'var(--text-nav-line-height)', fontWeight: 'var(--text-nav-weight)' },
+        ],
+        'product-title': [
+          'var(--text-product-title-size)',
+          { lineHeight: 'var(--text-product-title-line-height)', fontWeight: 'var(--text-product-title-weight)' },
+        ],
+        price: [
+          'var(--text-price-size)',
+          { lineHeight: 'var(--text-price-line-height)', fontWeight: 'var(--text-price-weight)' },
+        ],
+        body: [
+          'var(--text-body-size)',
+          { lineHeight: 'var(--text-body-line-height)', fontWeight: 'var(--text-body-weight)' },
         ],
       },
     },

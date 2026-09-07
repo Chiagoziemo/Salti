@@ -26,10 +26,11 @@ places.
 3. **Don't touch the `reserved` ramps** (`quaternary` through `octonary`).
    They're unfilled placeholders in Figma (`#000000`, hidden) — there's
    nothing to implement yet.
-4. **Match typography to role, not vibe.** Three typefaces are actually in
-   use — see the table below. Use `display` for headlines, `ui` for
+4. **Match typography to role, not vibe.** Six type roles are confirmed —
+   see the table below. Use `display` for hero headlines, `product-title` /
+   `price` for Product Page, `body` for description copy, `ui` for
    buttons/controls, `nav` for navigation labels/captions. Don't introduce a
-   fourth without a Figma reference.
+   new role without a Figma reference.
 5. **Componentize nav and footer on first touch.** Both are currently
    copy-pasted per page in Figma (~20 nav copies, 4 named footer variants).
    If you're building either in code, build it once as a real component with
@@ -92,11 +93,35 @@ theme sections. Flag to design if a footer looks wrong on `gold` or
 | `display` | Playfair Display | ExtraBold (800) | 48px | 1.2 | Hero / page headlines |
 | `ui` | DM Sans | Medium (500) | 16px | 1.2 | Buttons, CTAs |
 | `nav` | Work Sans | Regular (400) | 12.24px | 14.688px | Nav pill labels (capitalized) |
+| `product-title` | Playfair Display | SemiBold (600) | 24px | 1.2 | Product Page — product name |
+| `price` | Playfair Display | Medium (500) | 40px | 1.2 | Product Page — price |
+| `body` | DM Sans | Regular (400) | 18px | 1.2 | Product Page — description copy |
 | `token: "Text Small"` | Inter | Medium (500) | 16px | 1.5 | Defined as a Figma Variable, but not actually used by any sampled layer |
 
 The `Text Small` token exists but is disconnected from what's actually on
-the pages — treat the three roles above as the real scale until design
-formally tokenizes `display`/`ui`/`nav`.
+the pages — treat the six roles above as the real scale until design
+formally tokenizes them.
+
+## Product Page
+
+Pulled from Figma node `70:5606` (Dark theme). Real sampled content: product
+"ORGC Traditions Crewneck [Burgundy]", priced in **Nigerian Naira** (`₦40,000`)
+— consistent with the Home hero's "Free Shipping in Lagos, Nigeria" banner.
+
+- **`ProductGallery`** — a fixed 4-tile masonry (large / two-medium-row /
+  large), every tile on a `product-surface` (`#141414`) ground with the
+  photo centered and cropped square. The sampled file reuses the same photo
+  in all 4 tiles — treat that as placeholder repetition, not a rule.
+- **`SizeSelector`** — **correction**: this was originally built as a
+  quantity +/- stepper (`ProductStepper`, since removed). Direct inspection
+  of the Product Page showed that's wrong: it's a vertical list of size rows
+  (S/M/L/XL/2XL), selected row highlighted `product-surface-selected`
+  (`#232323`), with a labeled collapse-toggle bar underneath using the
+  `minus-sign` icon. **There is no plus icon anywhere in the file** — the
+  `PlusIcon` component has been removed along with the old stepper.
+- **Add to Cart** reuses the existing `Button` component unchanged (white
+  fill, near-black text, trailing arrow) — confirmed identical styling to
+  the Home hero CTA.
 
 ## Spacing & layout
 
@@ -124,7 +149,11 @@ Full values in `design-tokens/tokens.json`.
   text mapping in code is inferred from the pattern seen elsewhere, not
   confirmed against an actual Figma footer frame in the `gold` or `forest`
   sections.
-- **`ProductStepper` was only sampled on one theme's product page.** If
-  product pages differ by theme the way Home pages do, this component may
-  need theme-awareness too — not yet added since there's no evidence either
-  way.
+- **`ProductGallery` and `SizeSelector` were only sampled on the `dark`
+  theme's Product Page.** If Product Page differs by theme the way Home
+  does, these components may need theme-awareness too — not yet added since
+  there's no evidence either way.
+- **Each theme section has a second, shorter Product Page frame**
+  (`71:5979`, `79:1741`, `79:3392`, all 1024px tall vs. the primary
+  ~2717px) — same pattern as Home's duplicated frames. Not investigated;
+  likely an earlier draft, but not confirmed.

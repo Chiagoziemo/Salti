@@ -4,6 +4,5 @@ export {
   CloseIcon,
   ArrowForwardIcon,
   MinusIcon,
-  PlusIcon,
   type IconProps,
 } from './Icon';
