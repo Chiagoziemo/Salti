@@ -2,12 +2,14 @@
 
 ## Known render warns
 
-- `[RENDER_THIN]` on `ArrowForwardIcon`, `CloseIcon`, `HomeIcon`, `MinusIcon`, `PlusIcon`,
-  `ShoppingBasketIcon`: each preview is a single stroke-SVG glyph with no text
-  content, so the "mounts have no text" heuristic flags it even though the
-  contact sheet shows the icon rendering correctly. Confirmed benign by eye
-  (`ds-bundle/_screenshots/contact-sheet-1.png`, 2026-08-22). A re-sync
-  should expect this warn on all six icon previews and not treat it as new.
+- `[RENDER_THIN]` on `ArrowForwardIcon`, `CloseIcon`, `HomeIcon`, `MinusIcon`,
+  `ShoppingBasketIcon`, `ChevronLeftIcon`, `ChevronRightIcon`: each preview
+  is a single stroke-SVG glyph with no text content, so the "mounts have no
+  text" heuristic flags it even though the contact sheet shows the icon
+  rendering correctly. Confirmed benign by eye
+  (`ds-bundle/_screenshots/contact-sheet-1.png`). A re-sync should expect
+  this warn on all seven icon previews and not treat it as new. (`PlusIcon`
+  was on this list too but the component was removed — see below.)
 
 ## Config decisions
 
@@ -38,12 +40,18 @@
   ("Open questions for design") still apply here — nothing in this sync
   resolves them, it only builds on top of the `primary` ramp as the
   confirmed-live one.
-- `HeroGallery` (added after the Product Page pull) is not yet synced to
-  the Claude Design project as of this note — it exists in `src/` and is
-  used in `demo/pages/Home.tsx`, but the next design-sync run needs to pick
-  it up (rebuild → author a preview → grade → upload).
 - `HeroGallery`'s demo images (`public/images/IMG_*.jpg`) are real campaign
   photography from a Drive folder the user shared ("Melody collab"), not
   Figma exports — see the commit that added `public/images/` for
   provenance. They depict a linen co-ord set, not the "ORGC Traditions
   Crewneck" product on the Product Page — don't reuse them there.
+- `ProductStepper` and `PlusIcon` were removed (replaced by `SizeSelector` —
+  see `../DESIGN_SYSTEM.md` "Product Page") and cleaned up in this sync:
+  their remote files were deleted and their stale grade caches pruned
+  automatically by `package-capture.mjs`.
+- `HeroGallery`, `ProductGallery`, and `SizeSelector`'s previews use inline
+  SVG data-URI placeholders, not real photos or the Figma asset URL — the
+  design-sync capture context can't reach `public/images/` (that's the
+  demo app's static folder) or the expiring Figma CDN link. The demo app
+  (`demo/pages/Home.tsx`, `demo/pages/Product.tsx`) is what shows real
+  images; these previews only need to prove the layout works.
