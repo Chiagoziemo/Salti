@@ -23,11 +23,18 @@ export function HeroGallery({ images, collectionLabel = 'Collection 01', viewHre
   const current = images[index];
 
   return (
-    <div className={['relative h-[576px] w-full overflow-hidden bg-product-surface', className].filter(Boolean).join(' ')}>
+    <div
+      className={[
+        'relative h-[320px] w-full overflow-hidden bg-product-surface sm:h-[420px] lg:h-[576px]',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <img src={current.src} alt={current.alt} className="absolute inset-0 h-full w-full object-cover object-top" />
 
-      <div className="absolute left-[43px] top-[58px] flex flex-col items-center gap-16 text-white">
-        <span className="rotate-90 whitespace-nowrap font-ui text-2xl">{collectionLabel}</span>
+      <div className="absolute left-4 top-5 flex flex-col items-center gap-8 text-white sm:left-[43px] sm:top-[58px] sm:gap-16">
+        <span className="rotate-90 whitespace-nowrap font-ui text-base sm:text-2xl">{collectionLabel}</span>
         <a href={viewHref} className="font-ui text-sm">
           → View
         </a>

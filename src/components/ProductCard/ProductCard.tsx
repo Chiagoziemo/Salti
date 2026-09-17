@@ -18,9 +18,9 @@ export type ProductCardProps = {
  */
 export function ProductCard({ image, alt, title, price, href, linkComponent, className }: ProductCardProps) {
   return (
-    <div className={['flex w-[447px] shrink-0 flex-col gap-[41px]', className].filter(Boolean).join(' ')}>
-      <div className="flex h-[621px] items-center justify-center bg-product-surface">
-        <img src={image} alt={alt} className="h-[464px] w-[464px] object-cover" />
+    <div className={['flex w-[260px] shrink-0 flex-col gap-6 sm:w-[340px] lg:w-[447px] lg:gap-[41px]', className].filter(Boolean).join(' ')}>
+      <div className="flex h-[340px] items-center justify-center bg-product-surface sm:h-[440px] lg:h-[621px]">
+        <img src={image} alt={alt} className="h-[70%] w-[70%] object-cover" />
       </div>
       <div className="flex flex-col items-start gap-6">
         <div className="flex flex-col gap-2 text-white">

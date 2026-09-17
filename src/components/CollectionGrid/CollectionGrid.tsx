@@ -34,21 +34,32 @@ export function CollectionGrid({
   className,
 }: CollectionGridProps) {
   return (
-    <div className={['flex flex-col items-center gap-[80px] px-[80px] py-[120px]', className].filter(Boolean).join(' ')}>
-      <div className="flex flex-col items-center gap-[60px]">
+    <div
+      className={[
+        'flex flex-col items-center gap-12 px-4 py-16 sm:px-6 md:px-10 md:py-24 lg:gap-[80px] lg:px-[80px] lg:py-[120px]',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      <div className="flex flex-col items-center gap-8 lg:gap-[60px]">
         <p className="max-w-[684px] text-center font-ui text-statement text-white">{statement}</p>
         <Logo theme={theme} size={68} />
       </div>
 
-      <div className="flex w-full items-stretch gap-4">
+      <div className="flex w-full flex-col items-stretch gap-4 md:flex-row">
         {items.map((item, i) => (
-          <LinkComponent key={item.src ?? i} href={item.href} className="group relative h-[576px] flex-1 overflow-hidden">
+          <LinkComponent
+            key={item.src ?? i}
+            href={item.href}
+            className="group relative h-[320px] shrink-0 overflow-hidden sm:h-[420px] md:h-[576px] md:flex-1"
+          >
             <img src={item.src} alt={item.alt} className="absolute inset-0 h-full w-full object-cover" />
 
-            <span className="absolute left-[43px] top-[58px] rotate-90 whitespace-nowrap font-ui text-2xl text-white">
+            <span className="absolute left-4 top-5 rotate-90 whitespace-nowrap font-ui text-base text-white sm:left-[43px] sm:top-[58px] sm:text-2xl">
               {collectionLabel}
             </span>
-            <span className="absolute bottom-[101px] left-[43px] font-ui text-xs text-white">→ View</span>
+            <span className="absolute bottom-6 left-4 font-ui text-xs text-white sm:bottom-[101px] sm:left-[43px]">→ View</span>
 
             <div className="absolute inset-0 flex items-center justify-center bg-white/20 opacity-0 backdrop-blur-[12.5px] transition-opacity duration-200 group-hover:opacity-100">
               <span className="font-ui text-4xl text-white">View</span>

@@ -40,15 +40,22 @@ export function FeaturedProducts({
   };
 
   return (
-    <div className={['flex flex-col gap-[60px] py-[120px] pl-[80px]', className].filter(Boolean).join(' ')}>
-      <div className="flex items-center justify-center gap-3">
+    <div
+      className={[
+        'flex flex-col gap-10 py-16 pl-4 sm:pl-6 md:py-24 md:pl-10 lg:gap-[60px] lg:py-[120px] lg:pl-[80px]',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      <div className="flex items-center justify-center gap-3 pr-4 sm:pr-6 md:pr-10 lg:pr-[80px]">
         <DiamondIcon size={20} className="text-tertiary-200" />
         <span className="font-ui text-cream-tint text-xl font-medium">{eyebrow}</span>
       </div>
 
-      <div className="flex items-start gap-[88px]">
-        <div className="flex w-[359px] shrink-0 flex-col gap-14 text-white">
-          <div className="flex flex-col gap-12">
+      <div className="flex flex-col items-start gap-10 lg:flex-row lg:gap-[88px]">
+        <div className="flex w-full flex-col gap-8 pr-4 text-white sm:pr-6 md:pr-10 lg:w-[359px] lg:shrink-0 lg:gap-14 lg:pr-0">
+          <div className="flex flex-col gap-6 lg:gap-12">
             <h2 className="font-display text-heading">{heading}</h2>
             <p className="font-ui text-body">{body}</p>
           </div>
@@ -61,7 +68,7 @@ export function FeaturedProducts({
           </div>
         </div>
 
-        <div ref={scrollRef} className="flex gap-4 overflow-x-auto pr-[80px] [scrollbar-width:none]">
+        <div ref={scrollRef} className="flex w-full gap-4 overflow-x-auto pr-4 sm:pr-6 md:pr-10 lg:pr-[80px] [scrollbar-width:none]">
           {products.map((product, i) => (
             <ProductCard key={i} {...product} linkComponent={linkComponent} />
           ))}

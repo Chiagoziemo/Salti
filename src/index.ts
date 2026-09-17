@@ -13,6 +13,7 @@ export { CollectionGrid, type CollectionGridProps, type CollectionGridItem } fro
 export { ProductCard, type ProductCardProps } from './components/ProductCard';
 export { FeaturedProducts, type FeaturedProductsProps } from './components/FeaturedProducts';
 export { BrandStory, type BrandStoryProps } from './components/BrandStory';
+export { AnnouncementBar, type AnnouncementBarProps } from './components/AnnouncementBar';
 export {
   HomeIcon,
   ShoppingBasketIcon,

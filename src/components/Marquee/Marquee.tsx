@@ -21,7 +21,7 @@ export function Marquee({ items, className }: MarqueeProps) {
     <div className={['group overflow-hidden bg-marquee-bg py-4', className].filter(Boolean).join(' ')}>
       <div className="flex w-max animate-marquee items-center gap-6 group-hover:[animation-play-state:paused] motion-reduce:animate-none">
         {[...items, ...items].map((item, i) => (
-          <span key={i} className="flex items-center gap-6 font-ui text-2xl font-medium text-marquee-text">
+          <span key={i} className="flex items-center gap-6 font-ui text-lg font-medium text-marquee-text sm:text-2xl">
             {item}
             <DiamondIcon size={20} className="text-tertiary-200" />
           </span>

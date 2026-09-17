@@ -5,9 +5,13 @@ const MARQUEE_ITEMS = ['Different by Design', 'Natural Fabrics Honest Design', '
 export default function Contact() {
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-[60px] px-[80px] pb-[55px] pt-[80px]">
-        <div className="w-[713px] shrink-0 overflow-hidden">
-          <img src="/images/contact-hero.jpg" alt="Salti campaign — model in a cream hoodie against greenery" className="h-[576px] w-full object-cover object-top" />
+      <div className="flex flex-col gap-10 px-4 pb-10 pt-8 sm:px-6 md:px-10 lg:flex-row lg:items-center lg:gap-[60px] lg:px-[80px] lg:pb-[55px] lg:pt-[80px]">
+        <div className="w-full overflow-hidden lg:w-[713px] lg:shrink-0">
+          <img
+            src="/images/contact-hero.jpg"
+            alt="Salti campaign — portrait holding a single rose"
+            className="h-[320px] w-full object-cover object-top sm:h-[420px] lg:h-[576px]"
+          />
         </div>
 
         <div className="flex flex-1 flex-col items-start gap-12 text-white">

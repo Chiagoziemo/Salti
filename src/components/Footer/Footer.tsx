@@ -54,11 +54,13 @@ export function Footer({
   const t = THEME_CLASSES[theme];
 
   return (
-    <footer className={['px-[80px] py-[56px]', t.bg, t.text, className].filter(Boolean).join(' ')}>
+    <footer
+      className={['px-4 py-10 sm:px-6 md:px-10 lg:px-[80px] lg:py-[56px]', t.bg, t.text, className].filter(Boolean).join(' ')}
+    >
       {variant === 'default' && (
-        <div className="mb-10 flex flex-wrap items-start justify-between gap-12">
+        <div className="mb-10 flex flex-col flex-wrap items-start justify-between gap-10 sm:flex-row sm:gap-12">
           <div className="w-[93px]">{logo}</div>
-          <div className="flex flex-wrap gap-16">
+          <div className="flex w-full flex-wrap gap-8 sm:w-auto sm:gap-16">
             {columns.map((col) => (
               <div key={col.title} className="min-w-[120px]">
                 <h3 className="font-nav text-nav mb-3 uppercase tracking-wide opacity-60">{col.title}</h3>
@@ -77,7 +79,7 @@ export function Footer({
         </div>
       )}
 
-      <div className={['flex items-center justify-between border-t pt-6', t.divider].join(' ')}>
+      <div className={['flex flex-col items-start gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between', t.divider].join(' ')}>
         {variant === 'compact' && <div className="w-[93px]">{logo}</div>}
         <p className="font-nav text-nav opacity-60">{copyright}</p>
       </div>

@@ -89,6 +89,8 @@ export default {
         'theme-dark-bg': 'var(--theme-dark-bg)',
         'theme-dark-text': 'var(--theme-dark-text)',
         'theme-dark-accent-stripe': 'var(--theme-dark-accent-stripe)',
+        'theme-dark-accent-stripe-text': 'var(--theme-dark-accent-stripe-text)',
+        'theme-dark-gallery-surface': 'var(--theme-dark-gallery-surface)',
         'theme-dark-nav-surface': 'var(--theme-dark-nav-surface)',
         'theme-dark-nav-surface-border': 'var(--theme-dark-nav-surface-border)',
         'theme-dark-icon-surface': 'var(--theme-dark-icon-surface)',
@@ -96,6 +98,9 @@ export default {
 
         'theme-gold-bg': 'var(--theme-gold-bg)',
         'theme-gold-text': 'var(--theme-gold-text)',
+        'theme-gold-accent-stripe': 'var(--theme-gold-accent-stripe)',
+        'theme-gold-accent-stripe-text': 'var(--theme-gold-accent-stripe-text)',
+        'theme-gold-gallery-surface': 'var(--theme-gold-gallery-surface)',
         'theme-gold-nav-surface': 'var(--theme-gold-nav-surface)',
         'theme-gold-nav-surface-border': 'var(--theme-gold-nav-surface-border)',
         'theme-gold-icon-surface': 'var(--theme-gold-icon-surface)',
@@ -103,6 +108,9 @@ export default {
 
         'theme-forest-bg': 'var(--theme-forest-bg)',
         'theme-forest-text': 'var(--theme-forest-text)',
+        'theme-forest-accent-stripe': 'var(--theme-forest-accent-stripe)',
+        'theme-forest-accent-stripe-text': 'var(--theme-forest-accent-stripe-text)',
+        'theme-forest-gallery-surface': 'var(--theme-forest-gallery-surface)',
         'theme-forest-nav-surface': 'var(--theme-forest-nav-surface)',
         'theme-forest-nav-surface-border': 'var(--theme-forest-nav-surface-border)',
         'theme-forest-icon-surface': 'var(--theme-forest-icon-surface)',

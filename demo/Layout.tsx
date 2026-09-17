@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Nav, Footer, ThemeSwitcher, Logo, THEME_CLASSES, type Theme } from '../src';
+import { Nav, Footer, AnnouncementBar, ThemeSwitcher, Logo, THEME_CLASSES, type Theme } from '../src';
 import { RouterLink } from './RouterLink';
 
 /**
- * Shared page chrome. Nav/Footer are the only theme-aware components, and
- * the page background itself is the current theme's `bg` (confirmed: in
- * Figma the theme is a whole-page canvas color, not just a hero section) —
- * so both live here once, not per-page. `theme` is passed to page content
- * via Outlet context since some Home sections (Collection Grid's logo) are
- * theme-aware too.
+ * Shared page chrome. Nav/Footer/AnnouncementBar are the only theme-aware
+ * components, and the page background itself is the current theme's `bg`
+ * (confirmed: in Figma the theme is a whole-page canvas color, not just a
+ * hero section) — so all three live here once, not per-page. `theme` is
+ * passed to page content via Outlet context since some page sections
+ * (Collection Grid's logo, Product Page's gallery) are theme-aware too.
  */
 export default function Layout() {
   const [theme, setTheme] = useState<Theme>('dark');
@@ -24,8 +24,9 @@ export default function Layout() {
 
   return (
     <div className={`flex min-h-screen flex-col ${t.bg} ${t.text}`}>
+      <AnnouncementBar theme={theme}>• Free Shipping in Lagos, Nigeria •</AnnouncementBar>
       <Nav theme={theme} logo={<Logo theme={theme} />} items={items} cartCount={0} linkComponent={RouterLink} />
-      <div className="flex justify-end px-[80px] pb-4">
+      <div className="flex justify-end px-4 pb-4 sm:px-6 md:px-10 lg:px-[80px]">
         <ThemeSwitcher value={theme} onChange={setTheme} />
       </div>
 
@@ -42,15 +43,25 @@ export default function Layout() {
           {
             title: 'Shop',
             links: [
-              { label: 'New arrivals', href: '/product' },
-              { label: 'Collections', href: '/product' },
+              { label: 'Shop', href: '/product' },
+              { label: 'Collection 01', href: '/product' },
+              { label: 'All Pieces', href: '/product' },
             ],
           },
           {
-            title: 'Company',
+            title: 'About',
             links: [
               { label: 'About', href: '/about' },
+              { label: 'Our story', href: '/about' },
               { label: 'Contact', href: '/contact' },
+            ],
+          },
+          {
+            title: 'Connect',
+            links: [
+              { label: 'Instagram', href: '#' },
+              { label: 'Tiktok', href: '#' },
+              { label: 'Email', href: 'mailto:hello@Salti.com' },
             ],
           },
         ]}

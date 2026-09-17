@@ -46,7 +46,7 @@ export function SizeSelector({ sizes, value, onChange, label = 'Size', className
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="flex w-[264.5px] items-center justify-between bg-product-surface px-6 py-[10px] text-white"
+        className="flex w-full items-center justify-between bg-product-surface px-6 py-[10px] text-white sm:w-[264.5px]"
       >
         <span className="font-ui text-ui">{label}</span>
         <MinusIcon size={24} />

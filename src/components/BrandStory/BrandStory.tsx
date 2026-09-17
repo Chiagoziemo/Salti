@@ -27,11 +27,18 @@ export function BrandStory({
   className,
 }: BrandStoryProps) {
   return (
-    <div className={['relative flex items-center overflow-hidden px-[80px] py-[80px]', className].filter(Boolean).join(' ')}>
+    <div
+      className={[
+        'relative flex items-center overflow-hidden px-4 py-16 sm:px-6 md:px-10 md:py-20 lg:px-[80px] lg:py-[80px]',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <img src={image} alt={alt} className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-black/50" />
 
-      <div className="relative flex w-[606px] flex-col gap-12 text-white">
+      <div className="relative flex w-full max-w-[606px] flex-col gap-8 text-white lg:gap-12">
         <h2 className="font-display text-heading">{heading}</h2>
         <p className="font-ui text-detail">{body}</p>
         <TextLink href={ctaHref} size="sm" linkComponent={linkComponent} className="w-fit backdrop-blur-[5px]">

@@ -22,8 +22,8 @@ const MARQUEE_ITEMS = ['Different by Design', 'Natural Fabrics Honest Design', '
 
 const COLLECTION_ITEMS = [
   { src: '/images/collection-01.jpg', alt: 'Collection 01 — braided hair, greenery backdrop', href: '/product' },
-  { src: '/images/collection-02.jpg', alt: 'Collection 01 — footwear detail', href: '/product' },
-  { src: '/images/collection-03.jpg', alt: 'Collection 01 — hand holding a branded tennis ball', href: '/product' },
+  { src: '/images/collection-02.jpg', alt: 'Collection 01 — seated portrait in cream linen, sunglasses in hand', href: '/product' },
+  { src: '/images/collection-03.jpg', alt: 'Collection 01 — walking a marble hallway in white linen', href: '/product' },
 ];
 
 const FEATURED_PRODUCTS = [
@@ -62,8 +62,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col gap-[45px] px-[80px] pb-[112px] pt-4">
-        <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-8 px-4 pb-16 pt-4 sm:px-6 md:gap-10 md:px-10 md:pb-20 lg:gap-[45px] lg:px-[80px] lg:pb-[112px]">
+        <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="font-display text-display max-w-[520px]">
             Some clothes you wear,
             <br />
@@ -94,7 +94,7 @@ export default function Home() {
 
       <BrandStory
         image="/images/brand-story.jpg"
-        alt="Salti campaign — model in a cream hoodie against greenery"
+        alt="Salti campaign — seated portrait in linen, hand raised to sunglasses"
         heading="Crafted with intention."
         body="At SALTí, every piece begins long before it is worn. From carefully selected natural fabrics to considered silhouettes, we believe the smallest details create the greatest difference."
         ctaHref="/product"

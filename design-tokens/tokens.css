@@ -74,25 +74,42 @@
   /* site themes — 3 confirmed real, selectable themes (a literal 3-dot
      switcher exists in the Figma nav). Figma's own section names for
      "gold" and "forest" are both "Light Mode" despite "forest" being dark —
-     names below are ours. Only "dark" ties back to a Figma Variable
-     (primary/base); "gold" and "forest" are raw hex in the source file. */
+     names below are ours. Each theme has a page background AND a separate,
+     darker/different "accent stripe" color used by the announcement bar
+     (and, on gold, the ProductGallery tile surface) — only discovered by
+     checking the *outer* page wrapper, not just the hero content. Only
+     `dark`'s accent stripe ties back to a bound Figma Variable
+     (primary/base); the rest are raw hex in the source file. */
   --theme-dark-bg: #000000;
   --theme-dark-text: #ffffff;
   --theme-dark-accent-stripe: var(--color-primary-base);
+  --theme-dark-accent-stripe-text: #ffffff;
+  --theme-dark-gallery-surface: #141414;
   --theme-dark-nav-surface: rgba(18, 18, 18, 0.8);
   --theme-dark-nav-surface-border: #242222;
   --theme-dark-icon-surface: #191919;
   --theme-dark-icon-surface-border: #242222;
 
-  --theme-gold-bg: #ffd58b;
+  --theme-gold-bg: #fff2db;
   --theme-gold-text: #141414;
+  --theme-gold-accent-stripe: #ffd58b;
+  --theme-gold-accent-stripe-text: #141414;
+  --theme-gold-gallery-surface: #ffd58b;
   --theme-gold-nav-surface: rgba(255, 255, 255, 0.8);
   --theme-gold-nav-surface-border: #101010;
   --theme-gold-icon-surface: #ffffff;
   --theme-gold-icon-surface-border: #242222;
 
-  --theme-forest-bg: #14261e;
+  --theme-forest-bg: #375c4b;
   --theme-forest-text: #ffffff;
+  --theme-forest-accent-stripe: #14261e;
+  /* Source uses #141414 text here — illegible on a #14261e stripe (both
+     near-black). Read as a copy-paste slip from the gold variant, not
+     intentional; using white instead. See DESIGN_SYSTEM.md. */
+  --theme-forest-accent-stripe-text: #ffffff;
+  /* Not confirmed on a real forest Product Page — inferred to match the
+     accent stripe, following gold's pattern. See DESIGN_SYSTEM.md. */
+  --theme-forest-gallery-surface: #14261e;
   --theme-forest-nav-surface: rgba(0, 0, 0, 0.5);
   --theme-forest-nav-surface-border: #101010;
   --theme-forest-icon-surface: rgba(0, 0, 0, 0.5);

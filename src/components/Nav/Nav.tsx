@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from 'react';
+import { useState, type ElementType, type ReactNode } from 'react';
 import { HomeIcon, ShoppingBasketIcon } from '../Icon';
 import { THEME_CLASSES, type Theme } from '../../theme';
 
@@ -45,7 +45,9 @@ export type NavProps = {
  * Consolidates the ~20 copy-pasted nav frames found across Home / Product /
  * Contact into one component. Visual spec (colors, radii, type) is read
  * directly off the file; see DESIGN_SYSTEM.md for what's confirmed vs
- * approximated.
+ * approximated. The pill nav itself has no mobile spec in Figma (every
+ * sampled frame is desktop-width) — below `md` it collapses behind a
+ * hamburger toggle instead, a device-adaptation decision, not a sourced one.
  */
 export function Nav({
   logo,
@@ -57,52 +59,106 @@ export function Nav({
   className,
 }: NavProps) {
   const t = THEME_CLASSES[theme];
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const renderItem = (item: NavItem, stacked: boolean) => (
+    <LinkComponent
+      key={item.label}
+      href={item.href}
+      aria-current={item.active ? 'page' : undefined}
+      onClick={() => setMobileOpen(false)}
+      className={[
+        'flex items-center gap-[6px] rounded-[5px] px-4 py-2',
+        'font-nav text-nav capitalize',
+        stacked ? 'w-full' : '',
+        item.active
+          ? 'border border-theme-nav-item-active-border bg-theme-nav-item-active text-white'
+          : ['border border-transparent hover:bg-black/5', t.text].join(' '),
+      ].join(' ')}
+    >
+      {item.active && item.label.toLowerCase() === 'home' && <HomeIcon size={16} />}
+      {item.label}
+    </LinkComponent>
+  );
 
   return (
-    <div className={['flex items-center justify-between px-[80px] py-6', className].filter(Boolean).join(' ')}>
-      <div className="flex h-12 w-[68px] items-center">{logo}</div>
+    <div className={['relative px-4 py-4 sm:px-6 md:px-10 lg:px-[80px] lg:py-6', className].filter(Boolean).join(' ')}>
+      <div className="flex items-center justify-between">
+        <div className="flex h-10 w-[56px] items-center lg:h-12 lg:w-[68px]">{logo}</div>
 
-      <nav
-        aria-label="Primary"
-        className={['flex items-center gap-[12px] rounded-[10.71px] border p-[9px]', t.navSurface, t.navSurfaceBorder].join(
-          ' ',
-        )}
-      >
-        {items.map((item) => (
-          <LinkComponent
-            key={item.label}
-            href={item.href}
-            aria-current={item.active ? 'page' : undefined}
-            className={[
-              'flex items-center gap-[6px] rounded-[5px] px-4 py-2',
-              'font-nav text-nav capitalize',
-              item.active
-                ? 'border border-theme-nav-item-active-border bg-theme-nav-item-active text-white'
-                : ['border border-transparent hover:bg-black/5', t.text].join(' '),
-            ].join(' ')}
-          >
-            {item.active && item.label.toLowerCase() === 'home' && <HomeIcon size={16} />}
-            {item.label}
-          </LinkComponent>
-        ))}
-      </nav>
-
-      <div className="flex items-center gap-10">
-        <button
-          type="button"
-          onClick={onCartClick}
+        <nav
+          aria-label="Primary"
           className={[
-            'flex h-10 items-center gap-[6px] rounded-[5px] border px-4 py-[6px]',
-            'font-nav text-nav capitalize',
-            t.iconSurface,
-            t.iconSurfaceBorder,
-            t.text,
+            'hidden items-center gap-[12px] rounded-[10.71px] border p-[9px] md:flex',
+            t.navSurface,
+            t.navSurfaceBorder,
           ].join(' ')}
         >
-          <ShoppingBasketIcon size={16} />
-          Cart{cartCount > 0 ? ` (${cartCount})` : ''}
-        </button>
+          {items.map((item) => renderItem(item, false))}
+        </nav>
+
+        <div className="flex items-center gap-4 lg:gap-10">
+          <button
+            type="button"
+            onClick={onCartClick}
+            className={[
+              'flex h-10 items-center gap-[6px] rounded-[5px] border px-3 py-[6px] lg:px-4',
+              'font-nav text-nav capitalize',
+              t.iconSurface,
+              t.iconSurfaceBorder,
+              t.text,
+            ].join(' ')}
+          >
+            <ShoppingBasketIcon size={16} />
+            <span className="hidden sm:inline">Cart{cartCount > 0 ? ` (${cartCount})` : ''}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            className={[
+              'flex h-10 w-10 items-center justify-center rounded-[5px] border md:hidden',
+              t.iconSurface,
+              t.iconSurfaceBorder,
+              t.text,
+            ].join(' ')}
+          >
+            <span className="relative block h-3 w-4">
+              <span
+                className={[
+                  'absolute left-0 top-0 block h-[1.5px] w-full bg-current transition-transform',
+                  mobileOpen ? 'translate-y-[5px] rotate-45' : '',
+                ].join(' ')}
+              />
+              <span
+                className={[
+                  'absolute left-0 top-1/2 block h-[1.5px] w-full -translate-y-1/2 bg-current transition-opacity',
+                  mobileOpen ? 'opacity-0' : '',
+                ].join(' ')}
+              />
+              <span
+                className={[
+                  'absolute bottom-0 left-0 block h-[1.5px] w-full bg-current transition-transform',
+                  mobileOpen ? '-translate-y-[5px] -rotate-45' : '',
+                ].join(' ')}
+              />
+            </span>
+          </button>
+        </div>
       </div>
+
+      {mobileOpen && (
+        <nav
+          aria-label="Primary"
+          className={['mt-4 flex flex-col gap-2 rounded-[10.71px] border p-[9px] md:hidden', t.navSurface, t.navSurfaceBorder].join(
+            ' ',
+          )}
+        >
+          {items.map((item) => renderItem(item, true))}
+        </nav>
+      )}
     </div>
   );
 }

@@ -38,6 +38,12 @@ type ThemeClasses = {
    * lightness (light divider on dark bg, dark divider on light bg).
    */
   divider: string;
+  /** AnnouncementBar's background — a different, darker/distinct color from `bg` in every theme. */
+  accentStripe: string;
+  /** AnnouncementBar's text color. Overridden from the source on `forest` — see tokens.css. */
+  accentStripeText: string;
+  /** ProductGallery's tile surface. Confirmed on dark/gold; inferred on forest — see tokens.css. */
+  gallerySurface: string;
 };
 
 /**
@@ -54,6 +60,9 @@ export const THEME_CLASSES: Record<Theme, ThemeClasses> = {
     iconSurface: 'bg-theme-dark-icon-surface',
     iconSurfaceBorder: 'border-theme-dark-icon-surface-border',
     divider: 'border-white/10',
+    accentStripe: 'bg-theme-dark-accent-stripe',
+    accentStripeText: 'text-theme-dark-accent-stripe-text',
+    gallerySurface: 'bg-theme-dark-gallery-surface',
   },
   gold: {
     bg: 'bg-theme-gold-bg',
@@ -63,6 +72,9 @@ export const THEME_CLASSES: Record<Theme, ThemeClasses> = {
     iconSurface: 'bg-theme-gold-icon-surface',
     iconSurfaceBorder: 'border-theme-gold-icon-surface-border',
     divider: 'border-black/10',
+    accentStripe: 'bg-theme-gold-accent-stripe',
+    accentStripeText: 'text-theme-gold-accent-stripe-text',
+    gallerySurface: 'bg-theme-gold-gallery-surface',
   },
   forest: {
     bg: 'bg-theme-forest-bg',
@@ -72,5 +84,8 @@ export const THEME_CLASSES: Record<Theme, ThemeClasses> = {
     iconSurface: 'bg-theme-forest-icon-surface',
     iconSurfaceBorder: 'border-theme-forest-icon-surface-border',
     divider: 'border-white/10',
+    accentStripe: 'bg-theme-forest-accent-stripe',
+    accentStripeText: 'text-theme-forest-accent-stripe-text',
+    gallerySurface: 'bg-theme-forest-gallery-surface',
   },
 };

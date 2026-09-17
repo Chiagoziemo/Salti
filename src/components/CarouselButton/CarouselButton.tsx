@@ -19,7 +19,7 @@ export function CarouselButton({ direction, onClick, className }: CarouselButton
       onClick={onClick}
       aria-label={direction === 'prev' ? 'Previous' : 'Next'}
       className={[
-        'flex h-14 w-[72px] items-center justify-center rounded-full border-2 bg-white/20 text-white backdrop-blur-md',
+        'flex h-11 w-[56px] items-center justify-center rounded-full border-2 bg-white/20 text-white backdrop-blur-md sm:h-14 sm:w-[72px]',
         direction === 'prev' ? 'border-white/50' : 'border-white',
         className,
       ]

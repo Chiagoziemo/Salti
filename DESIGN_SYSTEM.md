@@ -61,6 +61,11 @@ places.
     every product card; Home hero gallery and Featured Products,
     respectively). A new occurrence of either pattern should use these,
     not a fresh one-off.
+11. **Render `AnnouncementBar` once, above `Nav`, on every page — and pass
+    it `theme`.** It's not a Home-only banner: it's the page's outer accent
+    stripe, structurally paired with the page background (see "Site
+    themes" below), so it belongs in shared layout chrome next to `Nav`/
+    `Footer`, not per-page.
 
 ## Color
 
@@ -84,11 +89,26 @@ names are misleading — **both `gold` and `forest` are labeled "Light Mode"
 in Figma, despite `forest` having a dark background.** The names below are
 ours, not Figma's; flag this to design so the file itself gets relabeled.
 
-| Theme | Figma section | Background | Text | Tokenized in Figma? |
-|---|---|---|---|---|
-| `dark` | "Dark Mode" (`79:639`) | `#000000` | white | ✅ partially — the announcement stripe uses `primary/base`; the page background itself is a flat `#000000` rect, not a variable |
-| `gold` | "Light Mode" (`79:1000`) | `#ffd58b` | `#141414` | ❌ raw hex |
-| `forest` | "Light Mode" (`79:2274`) | `#14261e` | white | ❌ raw hex |
+**Correction:** each theme actually has *two* backgrounds — a page
+background and a separately-colored **accent stripe** (used by
+`AnnouncementBar`, and confirmed on gold by `ProductGallery`'s tile
+surface too). This was missed on the first pass because only each theme's
+*inner* hero content was checked, not the outer page wrapper — the two
+colors happened to look similar enough in `gold`/`forest` screenshots that
+they read as one color until the Product Page pull showed the wrapper
+using a different hex than the hero's "Background" child.
+
+| Theme | Figma section | Page bg | Accent stripe | Text | Tokenized in Figma? |
+|---|---|---|---|---|---|
+| `dark` | "Dark Mode" (`79:639`) | `#000000` | `primary/base` (`#3a5448`) | white | ✅ partially — the stripe is a bound Variable; the page bg is a flat `#000000` rect |
+| `gold` | "Light Mode" (`79:1000`) | `#fff2db` | `#ffd58b` | `#141414` | ❌ raw hex, both colors |
+| `forest` | "Light Mode" (`79:2274`) | `#375c4b` | `#14261e` | white* | ❌ raw hex, both colors |
+
+*`forest`'s accent-stripe text is overridden from the source. Figma uses
+`#141414` text on the `#14261e` stripe there — both are near-black, so
+it's illegible. Read as a copy-paste slip from the `gold` variant (which
+correctly uses `#141414` on ITS much lighter stripe) rather than an
+intentional low-contrast choice; this build uses white instead.
 
 Nav surfaces (the floating pill + cart/icon cluster) also change per theme —
 see `src/theme.ts` `THEME_CLASSES` for the exact surface/border values used
@@ -96,10 +116,37 @@ in each. The CTA button (white fill, near-black text) and the active nav
 pill (`#191919` / border `#575757`) are the same on **all three** themes —
 confirmed identical across all three sampled Home pages.
 
-Footer's per-theme colors in `src/components/Footer/Footer.tsx` are
-**inferred, not directly sampled** — no footer was checked across all 3
-theme sections. Flag to design if a footer looks wrong on `gold` or
-`forest`.
+`ProductGallery`'s tile surface (`gallerySurface`) is confirmed to swap
+per theme too — `dark` uses `#141414` (a *third* distinct dark value, not
+matching either the page bg or the stripe), `gold` uses `#ffd58b` (matches
+its own accent stripe exactly). `forest`'s is **inferred**, not sampled —
+no forest Product Page was pulled. `SizeSelector`'s surface, by contrast,
+is confirmed **theme-invariant** — it stayed `#141414` even on the gold
+Product Page.
+
+Footer's per-theme *colors* are inferred (no footer was checked across all
+3 theme sections), but its *content* is now real — see "Footer content"
+below.
+
+## Footer content
+
+The 4 named footer variants in Figma (`Footer 3/4/5/6`) sample the same
+underlying content; `Footer 4` had the clearest/most complete instance and
+is what code follows. Real 3-column structure, not a placeholder
+2-column layout:
+
+| Column | Links |
+|---|---|
+| Shop | Shop, Collection 01, All Pieces |
+| About | About, Our story, Contact |
+| Connect | Instagram, Tiktok, Email |
+
+All three columns route to real in-app pages/anchors except Instagram/
+Tiktok, which are still `#` placeholders (no real social URLs were in the
+Figma file to sample). The copyright line (`© {year} Salti. All rights
+reserved.`) wasn't in the sampled Figma layer at all — it's a standard
+placeholder, not sourced, and should be swapped for real legal copy before
+shipping.
 
 ## Typography
 
@@ -184,6 +231,56 @@ Pulled from Figma node `70:5606` (Dark theme). Real sampled content: product
   fill, near-black text, trailing arrow) — confirmed identical styling to
   the Home hero CTA.
 
+## Photography
+
+All photos across the demo now come from the real Drive campaign shoot
+(`public/images/IMG_00xx.jpg`, 50 photos) except `product-crewneck.png`
+(a flat product cutout with no lifestyle equivalent in the shoot).
+`collection-02.jpg`, `collection-03.jpg`, `contact-hero.jpg`, and
+`brand-story.jpg` originally held **unrelated stock photos** (a "TWOTWO"
+branded padel racket/tennis ball, and a generic clothing-rack studio shot)
+that didn't match their own alt text or the brand at all — these have been
+replaced with real campaign shots (`IMG_0091`, `IMG_0017`, `IMG_0009`,
+`IMG_0069` respectively, copied in under their semantic filenames).
+`collection-01.jpg` was already a genuine campaign photo and wasn't
+touched. If more photos are swapped in later, prefer an unused `IMG_00xx`
+file over a new stock image — the shoot has plenty of unused variety.
+
+## Responsive behavior
+
+Every sampled Figma frame is desktop-width only — there's no mobile or
+tablet spec in the file for any page. The breakpoints and stacking
+decisions below are device-adaptation calls, not sourced from Figma:
+
+- **Nav** collapses its pill nav behind a hamburger toggle below `md`
+  (768px). The toggle renders the same `NavItem`s stacked vertically in a
+  dropdown panel; cart label text hides below `sm`, keeping just the icon.
+  Nothing in Figma shows a mobile nav — this pattern (hamburger + dropdown)
+  is standard, not extracted from the source.
+- **Fixed pixel widths/heights become fluid**: `px-[80px]` page margins
+  step down through `px-4` → `sm:px-6` → `md:px-10` → `lg:px-[80px]`
+  (`80px` — the real site-margin token — is preserved as the `lg`+ value
+  everywhere). Fixed panel widths (Product Page's `w-[728px]` gallery,
+  Contact's `w-[713px]` photo, Brand Story's `w-[606px]` text block) become
+  `w-full` with the original value kept as a `lg:` fixed width or `max-w`.
+- **Side-by-side sections stack vertically below `lg`** (occasionally
+  `md`): Product Page (gallery + details), Contact (photo + details),
+  Featured Products (sidebar + carousel), Collection Grid's 3-tile row
+  (stacks below `md`).
+- **Known flexbox pitfall**: a `flex-1` (which sets `flex-basis: 0`) on a
+  fixed-height tile broke height entirely once its parent switched to
+  `flex-col` on mobile — `flex-basis: 0` wins over an explicit `height` on
+  the flex main axis, collapsing the tile to 0px. Fixed by scoping
+  `flex-1` to the breakpoint where the parent is actually a row
+  (`md:flex-1`, `shrink-0` otherwise). Watch for this pattern anywhere
+  else a `flex-*` utility and a fixed `h-[…]` sit on the same element
+  inside a container that changes `flex-direction` across breakpoints.
+- **Large token type sizes are left un-shrunk** (`text-display` 48px,
+  `text-heading` 40px, `text-price` 40px, etc.) — they wrap onto more
+  lines on narrow screens rather than getting a separate mobile scale, to
+  avoid forking the type tokens outside `tokens.json`. Revisit if design
+  wants an actual fluid type scale.
+
 ## Spacing & layout
 
 8px base unit (`space-1`). Site margin 48px, gutter 32px. Section rhythm is
@@ -209,11 +306,21 @@ Full values in `design-tokens/tokens.json`.
 - **Footer wasn't sampled across all 3 themes** — its per-theme background/
   text mapping in code is inferred from the pattern seen elsewhere, not
   confirmed against an actual Figma footer frame in the `gold` or `forest`
-  sections.
-- **`ProductGallery` and `SizeSelector` were only sampled on the `dark`
-  theme's Product Page.** If Product Page differs by theme the way Home
-  does, these components may need theme-awareness too — not yet added since
-  there's no evidence either way.
+  sections. Content (see "Footer content" above) is real; colors are not.
+- **`ProductGallery`'s `forest` `gallerySurface` is inferred, not sampled**
+  — no forest Product Page was pulled, so its tile ground is assumed to
+  match forest's own accent stripe (`#14261e`) by analogy with `gold`
+  (where the tile ground exactly matches that theme's stripe). Confirm
+  against a real forest Product Page frame if one surfaces.
+- **`forest`'s accent-stripe text was overridden from the source's literal
+  `#141414`-on-`#14261e` (illegible) to white** — read as a copy-paste slip
+  from `gold`, not a design intent (see "Site themes" above for the
+  reasoning). Flag to design; revert to the source value if they confirm
+  low-contrast was actually intentional.
+- **`SizeSelector` was only sampled on the `dark` theme's Product Page**
+  (and confirmed theme-invariant there — `#141414` stayed constant). If
+  Product Page differs by theme the way Home does, this hasn't been
+  re-verified on `gold`/`forest`.
 - **Each theme section has a second, shorter Product Page frame**
   (`71:5979`, `79:1741`, `79:3392`, all 1024px tall vs. the primary
   ~2717px) — same pattern as Home's duplicated frames. Not investigated;
