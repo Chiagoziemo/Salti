@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '../Icon';
+import { CarouselButton } from '../CarouselButton';
 
 export type HeroGalleryProps = {
   images: { src: string; alt: string }[];
@@ -35,22 +35,8 @@ export function HeroGallery({ images, collectionLabel = 'Collection 01', viewHre
 
       {images.length > 1 && (
         <div className="absolute bottom-4 left-1/2 flex w-[calc(100%-32px)] max-w-[1356px] -translate-x-1/2 items-center justify-between">
-          <button
-            type="button"
-            onClick={prev}
-            aria-label="Previous"
-            className="flex h-14 w-[72px] items-center justify-center rounded-full border-2 border-white/50 bg-white/20 text-white backdrop-blur-md"
-          >
-            <ChevronLeftIcon size={24} />
-          </button>
-          <button
-            type="button"
-            onClick={next}
-            aria-label="Next"
-            className="flex h-14 w-[72px] items-center justify-center rounded-full border-2 border-white bg-white/20 text-white backdrop-blur-md"
-          >
-            <ChevronRightIcon size={24} />
-          </button>
+          <CarouselButton direction="prev" onClick={prev} />
+          <CarouselButton direction="next" onClick={next} />
         </div>
       )}
     </div>

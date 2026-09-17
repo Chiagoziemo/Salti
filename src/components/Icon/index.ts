@@ -6,5 +6,10 @@ export {
   MinusIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  DiamondIcon,
+  FacebookIcon,
+  InstagramIcon,
+  TelegramIcon,
+  WhatsAppIcon,
   type IconProps,
 } from './Icon';

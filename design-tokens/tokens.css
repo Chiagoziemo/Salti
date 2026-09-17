@@ -122,6 +122,7 @@
   --font-display: 'Playfair Display', Georgia, serif;
   --font-ui: 'DM Sans', system-ui, sans-serif;
   --font-nav: 'Work Sans', system-ui, sans-serif;
+  --font-label: 'Bricolage Grotesque', system-ui, sans-serif;
 
   --text-display-size: 48px;
   --text-display-weight: 800;
@@ -152,4 +153,33 @@
   /* Product Page surfaces — node 70:5793, 70:5927 */
   --product-surface: #141414;
   --product-surface-selected: #232323;
+
+  /* Home page (Marquee, Collection Grid, Featured Products, Brand Story)
+     and Contact — nodes 78:514, 20:2891, 64:4765, 64:4870, 67:5460 */
+  --text-heading-size: 40px;
+  --text-heading-weight: 800;
+  --text-heading-line-height: 1.2;
+  --text-heading-tracking: -0.8px;
+
+  --text-statement-size: 32px;
+  --text-statement-weight: 500;
+  --text-statement-line-height: 1.2;
+  --text-statement-tracking: -2px;
+
+  --text-price-sm-size: 32px;
+  --text-price-sm-weight: 500;
+  --text-price-sm-line-height: 1.2;
+
+  --text-label-size: 16px;
+  --text-label-weight: 400;
+  --text-label-line-height: 1.5;
+
+  --text-detail-size: 24px;
+  --text-detail-weight: 500;
+  --text-detail-line-height: 1.2;
+
+  --color-cream-tint: #fff2db;
+  --marquee-bg: #0d0d0d;
+  --marquee-text: #373737;
+  --text-link-border: #d2d2d2;
 }

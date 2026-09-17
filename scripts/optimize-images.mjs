@@ -9,7 +9,7 @@ const DIR = join(import.meta.dirname, '..', 'public', 'images');
 const MAX_DIMENSION = 2000;
 const QUALITY = 82;
 
-const files = (await readdir(DIR)).filter((f) => /\.jpe?g$/i.test(f));
+const files = (await readdir(DIR)).filter((f) => /\.(jpe?g|png)$/i.test(f));
 
 let beforeTotal = 0;
 let afterTotal = 0;
@@ -18,13 +18,17 @@ for (const file of files) {
   const path = join(DIR, file);
   const before = (await stat(path)).size;
   beforeTotal += before;
+  const isPng = /\.png$/i.test(file);
 
-  const buffer = await sharp(path)
-    .rotate() // apply EXIF orientation before stripping metadata
-    .resize({ width: MAX_DIMENSION, height: MAX_DIMENSION, fit: 'inside', withoutEnlargement: true })
-    .jpeg({ quality: QUALITY, mozjpeg: true })
-    .toBuffer();
+  // PNGs here are product cutouts with real alpha (transparent background)
+  // — flattening to JPEG would fill that in with a solid color, so they
+  // stay PNG (resized + recompressed) while JPEGs re-encode as before.
+  let pipeline = sharp(path)
+    .rotate()
+    .resize({ width: MAX_DIMENSION, height: MAX_DIMENSION, fit: 'inside', withoutEnlargement: true });
+  pipeline = isPng ? pipeline.png({ compressionLevel: 9 }) : pipeline.jpeg({ quality: QUALITY, mozjpeg: true });
 
+  const buffer = await pipeline.toBuffer();
   await sharp(buffer).toFile(path + '.tmp');
   await import('node:fs/promises').then((fs) => fs.rename(path + '.tmp', path));
 

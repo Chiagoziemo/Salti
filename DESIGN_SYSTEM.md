@@ -26,11 +26,10 @@ places.
 3. **Don't touch the `reserved` ramps** (`quaternary` through `octonary`).
    They're unfilled placeholders in Figma (`#000000`, hidden) — there's
    nothing to implement yet.
-4. **Match typography to role, not vibe.** Six type roles are confirmed —
-   see the table below. Use `display` for hero headlines, `product-title` /
-   `price` for Product Page, `body` for description copy, `ui` for
-   buttons/controls, `nav` for navigation labels/captions. Don't introduce a
-   new role without a Figma reference.
+4. **Match typography to role, not vibe.** Twelve type roles are confirmed —
+   see the table below. Don't introduce a new role without a Figma
+   reference, and don't reach for `label` (Bricolage Grotesque) outside the
+   one spot it's confirmed — see the open question about it below.
 5. **Componentize nav and footer on first touch.** Both are currently
    copy-pasted per page in Figma (~20 nav copies, 4 named footer variants).
    If you're building either in code, build it once as a real component with
@@ -46,11 +45,22 @@ places.
    `dark` default once a page has a real theme.** Use `THEME_CLASSES` from
    `src/theme.ts` for any new themed surface rather than hardcoding a hex
    per theme inline — it's the single place all 3 themes' colors live.
-8. **In a single-page app, pass `linkComponent` to `Nav` and `Footer`.**
-   Both default to a plain `<a>` (full page reload) to keep the library
-   router-agnostic — it takes `href`, not a router's `to`. Write a small
-   adapter once per app (see `demo/Layout.tsx`'s `RouterLink`) and reuse it;
-   don't leave the default in place and accept full reloads by omission.
+8. **In a single-page app, pass `linkComponent` to every component that
+   takes one** (`Nav`, `Footer`, `TextLink`, `CollectionGrid`,
+   `FeaturedProducts`, `BrandStory`). All default to a plain `<a>` (full
+   page reload) to keep the library router-agnostic — they take `href`, not
+   a router's `to`. Write the adapter once (see `demo/RouterLink.tsx`) and
+   pass it everywhere; don't leave the default in place and accept full
+   reloads by omission.
+9. **Use `Logo`, not text, for the wordmark.** Figma's Nav never had a text
+   "Salti" wordmark — only the icon mark (`Logo`, from "Logos Variants",
+   nodes 1:7/1:4). It auto-picks light/dark fill from `theme`.
+10. **Reuse `TextLink` and `CarouselButton` — don't re-invent the
+    underlined-arrow link or the circular chevron button.** Both patterns
+    repeat across at least 3 sections each (Featured Products, Brand Story,
+    every product card; Home hero gallery and Featured Products,
+    respectively). A new occurrence of either pattern should use these,
+    not a fresh one-off.
 
 ## Color
 
@@ -100,12 +110,58 @@ theme sections. Flag to design if a footer looks wrong on `gold` or
 | `nav` | Work Sans | Regular (400) | 12.24px | 14.688px | Nav pill labels (capitalized) |
 | `product-title` | Playfair Display | SemiBold (600) | 24px | 1.2 | Product Page — product name |
 | `price` | Playfair Display | Medium (500) | 40px | 1.2 | Product Page — price |
-| `body` | DM Sans | Regular (400) | 18px | 1.2 | Product Page — description copy |
+| `body` | DM Sans | Regular (400) | 18px | 1.2 | Product Page description; "Explore the Collection" text-links |
+| `heading` | Playfair Display | ExtraBold (800) | 40px | 1.2 | Section headings (Featured Products, Brand Story) — smaller than hero `display` |
+| `statement` | DM Sans | Medium (500) | 32px | 1.2 | Collection Grid's centered brand statement |
+| `price-sm` | Playfair Display | Medium (500) | 32px | 1.2 | Featured Products card price (Product Page itself uses the larger `price`) |
+| `label` | **Bricolage Grotesque** | Regular (400) | 16px | 1.5 | Contact's "Socials:" — the only sampled use of this 4th typeface, see open question |
+| `detail` | DM Sans | Medium (500) | 24px | 1.2 | Contact details block; Featured Products card titles; Brand Story body |
 | `token: "Text Small"` | Inter | Medium (500) | 16px | 1.5 | Defined as a Figma Variable, but not actually used by any sampled layer |
 
 The `Text Small` token exists but is disconnected from what's actually on
-the pages — treat the six roles above as the real scale until design
-formally tokenizes them.
+the pages — treat the roles above as the real scale until design formally
+tokenizes them.
+
+## Home page
+
+Home has 5 sections, not just the hero (the hero was the only one pulled
+initially — the other 4 were found later and are now fully built):
+
+1. **Hero** (`10:2010` etc.) — headline + CTA + `HeroGallery`. Covered above.
+2. **Marquee** (`78:514`) — see `Marquee` below.
+3. **Collection Grid** (`20:2891`) — centered brand statement (`statement`
+   role) + the real `Logo` mark + a 3-image grid (`CollectionGrid`). Each
+   tile shows "Collection 01" + "→ View" at rest; Figma's file froze a
+   frosted-glass "View" overlay permanently visible on the middle tile
+   rather than showing a resting state — built as a real `:hover` instead,
+   applied uniformly to all three tiles, not just the one Figma happened to
+   screenshot mid-hover.
+4. **Featured Products** (`64:4765`) — `FeaturedProducts` + `ProductCard`.
+   Real catalog names surfaced here: "ORGC Traditions Crewneck [Grey]" and
+   "The Fur Shirt", both ₦40,000. The sampled file shows each repeated
+   twice in the carousel — that's **2 real SKUs**, not 4; the repetition
+   isn't a pattern to preserve when wiring real product data.
+5. **Brand Story** (`64:4870`) — `BrandStory`. Full-bleed photo (same photo
+   as Collection Grid's centered background) under a flat 50%-black
+   overlay.
+
+**`Marquee`** (used identically on Home and Contact, `78:514`/`81:3899`):
+an infinite scrolling ticker — Figma's own Project Inspo brief documents it
+explicitly ("All five brand lines scrolling continuously. Pauses on
+hover."). Scroll speed itself isn't in the file (30s, tuned for
+readability — not sourced). Content: "Different by Design", "Natural
+Fabrics Honest Design", "Not made to fit in", "Become the Exception".
+
+## Contact page
+
+Pulled from `67:5460` (Dark theme only — gold/forest not checked, same gap
+as Product Page). Two-column layout: a photo panel + a content column with
+heading ("Contact us", `display` role), contact details (`detail` role:
+email/phone/"Join our community"), a "Socials:" label (the file's only use
+of **Bricolage Grotesque** — see open question below), 4 social icon
+badges (Facebook/Instagram/Telegram/WhatsApp — approximated brand glyphs,
+not pixel-exact reproductions of Figma's exported SVGs), and the same
+`Marquee` component as Home, full-width at the bottom.
 
 ## Product Page
 
@@ -162,3 +218,18 @@ Full values in `design-tokens/tokens.json`.
   (`71:5979`, `79:1741`, `79:3392`, all 1024px tall vs. the primary
   ~2717px) — same pattern as Home's duplicated frames. Not investigated;
   likely an earlier draft, but not confirmed.
+- **Bricolage Grotesque is a 4th typeface used in exactly one place** — the
+  "Socials:" label on Contact (`label` role). Worth confirming with design
+  whether that's deliberate (a genuine 4th brand typeface for
+  micro-labels) or a one-off slip while designing that layer. Until
+  confirmed, don't reach for `label` anywhere else.
+- **Social icon badges are approximated**, not pixel-exact copies of
+  Figma's exported SVGs (`items` 77:446/448/451/453) — the general
+  Facebook/Instagram/Telegram/WhatsApp shapes are right, but the exact
+  glyph geometry wasn't traced. Fine for a placeholder; revisit before
+  shipping if brand-accurate social icons matter.
+- **Contact page wasn't sampled across all 3 themes**, same gap as Product
+  Page — only `dark` is built.
+- **"Tag design" and "Mockup" sections were checked and excluded** — the
+  former is print-ready garment tag artwork, the latter is device/
+  presentation renders. Neither is a web UI component.

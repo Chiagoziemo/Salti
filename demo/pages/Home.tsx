@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
-import { Button, HeroGallery } from '../../src';
+import { useOutletContext } from 'react-router-dom';
+import {
+  Button,
+  HeroGallery,
+  Marquee,
+  CollectionGrid,
+  FeaturedProducts,
+  BrandStory,
+  type Theme,
+} from '../../src';
+import { RouterLink } from '../RouterLink';
 
-// Real campaign photography (Drive folder "Melody collab", downloaded and
-// optimized into public/images/) — same two-model linen-set shoot across
-// every frame, so any subset reads as one coherent look.
 const HERO_IMAGES = [
   { src: '/images/IMG_0006.jpg', alt: 'Salti campaign — close portrait with a rose' },
   { src: '/images/IMG_0005.jpg', alt: 'Salti campaign — walking the hallway in white linen' },
@@ -12,23 +18,88 @@ const HERO_IMAGES = [
   { src: '/images/IMG_0118.jpg', alt: 'Salti campaign — both models together' },
 ];
 
+const MARQUEE_ITEMS = ['Different by Design', 'Natural Fabrics Honest Design', 'Not made to fit in', 'Become the Exception'];
+
+const COLLECTION_ITEMS = [
+  { src: '/images/collection-01.jpg', alt: 'Collection 01 — braided hair, greenery backdrop', href: '/product' },
+  { src: '/images/collection-02.jpg', alt: 'Collection 01 — footwear detail', href: '/product' },
+  { src: '/images/collection-03.jpg', alt: 'Collection 01 — hand holding a branded tennis ball', href: '/product' },
+];
+
+const FEATURED_PRODUCTS = [
+  {
+    image: '/images/product-crewneck.png',
+    alt: 'ORGC Traditions Crewneck, Grey',
+    title: 'ORGC Traditions Crewneck [Grey]',
+    price: '₦40,000',
+    href: '/product',
+  },
+  {
+    image: '/images/product-crewneck.png',
+    alt: 'ORGC Traditions Crewneck, Grey',
+    title: 'ORGC Traditions Crewneck [Grey]',
+    price: '₦40,000',
+    href: '/product',
+  },
+  {
+    image: '/images/product-crewneck.png',
+    alt: 'The Fur Shirt',
+    title: 'The Fur Shirt',
+    price: '₦40,000',
+    href: '/product',
+  },
+  {
+    image: '/images/product-crewneck.png',
+    alt: 'The Fur Shirt',
+    title: 'The Fur Shirt',
+    price: '₦40,000',
+    href: '/product',
+  },
+];
+
 export default function Home() {
+  const { theme } = useOutletContext<{ theme: Theme }>();
+
   return (
-    <div className="flex flex-col gap-[45px] px-[80px] pb-[112px] pt-4">
-      <div className="flex items-start justify-between">
-        <h1 className="font-display text-display max-w-[520px]">
-          Some clothes you wear,
-          <br />
-          Salti you are.
-        </h1>
-        <Button withArrow>Shop Our Collection</Button>
+    <div className="flex flex-col">
+      <div className="flex flex-col gap-[45px] px-[80px] pb-[112px] pt-4">
+        <div className="flex items-start justify-between">
+          <h1 className="font-display text-display max-w-[520px]">
+            Some clothes you wear,
+            <br />
+            Salti you are.
+          </h1>
+          <Button withArrow>Shop Our Collection</Button>
+        </div>
+
+        <HeroGallery images={HERO_IMAGES} viewHref="/product" />
       </div>
 
-      <HeroGallery images={HERO_IMAGES} viewHref="/product" />
+      <Marquee items={MARQUEE_ITEMS} />
 
-      <Link to="/product" className="font-nav text-nav inline-block w-fit capitalize underline">
-        View a product →
-      </Link>
+      <CollectionGrid
+        theme={theme}
+        statement="Some clothes complete an outfit. The right ones become part of who you are. At SALTí, we craft timeless pieces from natural fabrics with intention, care, and uncompromising attention to detail."
+        items={COLLECTION_ITEMS}
+        linkComponent={RouterLink}
+      />
+
+      <FeaturedProducts
+        heading="Every Piece begins with intention."
+        body="How should clothing feel when nothing is forced? Collection 01 is our first answer- a study in natural fabrics, quiet confidence, and thoughtful construction"
+        ctaHref="/product"
+        products={FEATURED_PRODUCTS}
+        linkComponent={RouterLink}
+      />
+
+      <BrandStory
+        image="/images/brand-story.jpg"
+        alt="Salti campaign — model in a cream hoodie against greenery"
+        heading="Crafted with intention."
+        body="At SALTí, every piece begins long before it is worn. From carefully selected natural fabrics to considered silhouettes, we believe the smallest details create the greatest difference."
+        ctaHref="/product"
+        linkComponent={RouterLink}
+      />
     </div>
   );
 }

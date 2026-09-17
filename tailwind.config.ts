@@ -113,6 +113,11 @@ export default {
 
         'product-surface': 'var(--product-surface)',
         'product-surface-selected': 'var(--product-surface-selected)',
+
+        'cream-tint': 'var(--color-cream-tint)',
+        'marquee-bg': 'var(--marquee-bg)',
+        'marquee-text': 'var(--marquee-text)',
+        'text-link-border': 'var(--text-link-border)',
       },
       spacing: {
         'space-1': 'var(--space-1)',
@@ -132,6 +137,7 @@ export default {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         ui: ['"DM Sans"', 'system-ui', 'sans-serif'],
         nav: ['"Work Sans"', 'system-ui', 'sans-serif'],
+        label: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         display: [
@@ -162,6 +168,45 @@ export default {
           'var(--text-body-size)',
           { lineHeight: 'var(--text-body-line-height)', fontWeight: 'var(--text-body-weight)' },
         ],
+        heading: [
+          'var(--text-heading-size)',
+          {
+            lineHeight: 'var(--text-heading-line-height)',
+            letterSpacing: 'var(--text-heading-tracking)',
+            fontWeight: 'var(--text-heading-weight)',
+          },
+        ],
+        statement: [
+          'var(--text-statement-size)',
+          {
+            lineHeight: 'var(--text-statement-line-height)',
+            letterSpacing: 'var(--text-statement-tracking)',
+            fontWeight: 'var(--text-statement-weight)',
+          },
+        ],
+        'price-sm': [
+          'var(--text-price-sm-size)',
+          { lineHeight: 'var(--text-price-sm-line-height)', fontWeight: 'var(--text-price-sm-weight)' },
+        ],
+        label: [
+          'var(--text-label-size)',
+          { lineHeight: 'var(--text-label-line-height)', fontWeight: 'var(--text-label-weight)' },
+        ],
+        detail: [
+          'var(--text-detail-size)',
+          { lineHeight: 'var(--text-detail-line-height)', fontWeight: 'var(--text-detail-weight)' },
+        ],
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        // Duration is arbitrary (Figma doesn't encode animation timing) —
+        // tuned for a readable scroll speed, not sourced from the file.
+        marquee: 'marquee 30s linear infinite',
       },
     },
   },

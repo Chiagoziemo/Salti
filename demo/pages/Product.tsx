@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Button, ProductGallery, SizeSelector } from '../../src';
 
-// Temporary — this is the actual sampled photo exported from Figma, but
-// Figma's asset URLs expire after ~7 days. Replace with real product
-// photography before shipping.
-const PRODUCT_PHOTO = 'https://www.figma.com/api/mcp/asset/7a575e1f-b589-45bd-9f50-5000bb04d37e.png';
+// Same sweater photo Figma reuses for both the Product Page gallery and
+// the Featured Products card ("ORGC Traditions Crewneck [Grey]") — the
+// product copy here says "Burgundy" while the photo is grey; that mismatch
+// exists in the source file itself, not introduced here.
+const PRODUCT_PHOTO = '/images/product-crewneck.png';
 
 export default function Product() {
   const [size, setSize] = useState('2XL');
