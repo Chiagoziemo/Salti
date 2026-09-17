@@ -24,8 +24,9 @@ export type ProductGalleryProps = {
  * Product Page image gallery (node 70:5927, 79:1355 on gold): a fixed
  * 4-tile masonry — large / two-medium-row / large — with the photo
  * centered and cropped square. Every tile used the same photo in the
- * sampled file; treat that as placeholder repetition, not a rule — pass
- * distinct images once real product photography exists.
+ * sampled file; treat that as placeholder repetition, not a rule — the
+ * demo now passes 4 distinct real campaign shots (see `demo/pages/Product.tsx`)
+ * instead of repeating one stock cutout.
  */
 export function ProductGallery({ alt, topImage, leftImage, rightImage, bottomImage, theme = 'dark', className }: ProductGalleryProps) {
   const surface = THEME_CLASSES[theme].gallerySurface;

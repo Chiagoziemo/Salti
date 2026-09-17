@@ -15,6 +15,13 @@ export type HeroGalleryProps = {
  * shoot) against a wide landscape slot, so it crops with `object-top` to
  * favor faces over cropping tight on the torso — a deliberate compromise,
  * not a Figma spec.
+ *
+ * Sized with `aspect-ratio` (not fixed breakpoint heights) so the crop
+ * scales continuously with viewport width instead of jumping between a
+ * few fixed pixel heights — a taller, more forgiving ratio on narrow
+ * screens where the container is also narrow, widening toward the
+ * desktop banner ratio, capped by `max-h` so it never grows past the
+ * original 576px design height on very wide screens.
  */
 export function HeroGallery({ images, collectionLabel = 'Collection 01', viewHref = '#', className }: HeroGalleryProps) {
   const [index, setIndex] = useState(0);
@@ -25,7 +32,7 @@ export function HeroGallery({ images, collectionLabel = 'Collection 01', viewHre
   return (
     <div
       className={[
-        'relative h-[320px] w-full overflow-hidden bg-product-surface sm:h-[420px] lg:h-[576px]',
+        'relative aspect-[4/5] w-full max-h-[576px] overflow-hidden bg-product-surface sm:aspect-[16/10] lg:aspect-[21/9]',
         className,
       ]
         .filter(Boolean)

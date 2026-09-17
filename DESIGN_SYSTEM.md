@@ -199,6 +199,29 @@ hover."). Scroll speed itself isn't in the file (30s, tuned for
 readability — not sourced). Content: "Different by Design", "Natural
 Fabrics Honest Design", "Not made to fit in", "Become the Exception".
 
+## About page
+
+Unlike Home/Product/Contact, there's no designed About *page* frame in the
+Figma file to pull — the file's "Project Inspo" section instead has a
+"Website Design Brief" (nodes `4:687`, "Page 7") containing a brand-language
+reference doc: a messaging table and "The Four Brand Pillars." That brief
+explicitly names its "Brand Descriptor" line's destination as "About page,
+press kit, brand bio closing," and lists "personal about page" as a design
+implication of the LOVE pillar — so building a real About page from that
+brief's actual copy (rather than inventing new copy, or leaving the old
+"ask to pull" placeholder) is a legitimate use of sourced content, just
+from a different kind of node than the other pages.
+
+Current build: a `BrandStory`-style full-bleed intro ("Who is SALTí?" +
+the brief's brand-overview paragraph), the Four Pillars (Presence,
+Excellence, Intentionality, Love — verbatim body copy from the brief), a
+centered closing statement using the brief's own "About page ... brand bio
+closing" line ("Natural fabrics. Honest design. Be Different."), and the
+same `Marquee` as Home/Contact. No layout/visual spec exists for this
+page in Figma — the section order and treatment (reusing `BrandStory`, a
+4-column pillar grid, a `CollectionGrid`-statement-style closing) are this
+build's choices, not sourced ones.
+
 ## Contact page
 
 Pulled from `67:5460` (Dark theme only — gold/forest not checked, same gap
@@ -280,6 +303,26 @@ decisions below are device-adaptation calls, not sourced from Figma:
   lines on narrow screens rather than getting a separate mobile scale, to
   avoid forking the type tokens outside `tokens.json`. Revisit if design
   wants an actual fluid type scale.
+- **Found and fixed a second overflow bug**, distinct from the flexbox one
+  above: Product Page and Contact switched to a fixed-width side-by-side
+  layout (`728px`/`713px` panel + `80px` padding each side + a gap) at the
+  `lg` breakpoint (1024px) — at exactly 1024px viewport that only leaves
+  ~90–100px for the text column, so the price and "Add to Cart" render
+  partly or fully off-screen. Fixed by (a) switching the side-by-side
+  breakpoint to `xl` (1280px) and (b) making the fixed panel width a
+  percentage with the original pixel value kept only as a `max-w` cap
+  (`xl:w-[45%] xl:max-w-[728px]`, `xl:w-[55%] xl:max-w-[713px]`), so the
+  text column always gets a guaranteed share of the viewport instead of
+  "whatever's left after a fixed-px sidebar." Any other panel+sidebar
+  layout added later should use this percentage+max-w pattern, not a bare
+  fixed `w-[…px]`, to avoid the same failure at its own breakpoint edge.
+- **`HeroGallery` uses `aspect-ratio`, not fixed breakpoint heights**
+  (`aspect-[4/5]` → `sm:aspect-[16/10]` → `lg:aspect-[21/9]`, capped at
+  `max-h-[576px]`) — fixed pixel heights per breakpoint caused visibly
+  wrong crops at viewport widths between/beyond the breakpoints (e.g. a
+  384px-tall crop stretched across a 1440px-wide container is a much more
+  extreme letterbox than the same height at 1024px). Aspect-ratio scales
+  the crop continuously with the container's actual width instead.
 
 ## Spacing & layout
 

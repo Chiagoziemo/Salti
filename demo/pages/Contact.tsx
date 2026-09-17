@@ -5,8 +5,8 @@ const MARQUEE_ITEMS = ['Different by Design', 'Natural Fabrics Honest Design', '
 export default function Contact() {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col gap-10 px-4 pb-10 pt-8 sm:px-6 md:px-10 lg:flex-row lg:items-center lg:gap-[60px] lg:px-[80px] lg:pb-[55px] lg:pt-[80px]">
-        <div className="w-full overflow-hidden lg:w-[713px] lg:shrink-0">
+      <div className="flex flex-col gap-10 px-4 pb-10 pt-8 sm:px-6 md:px-10 lg:px-[80px] lg:pb-[55px] lg:pt-[80px] xl:flex-row xl:items-center xl:gap-[60px]">
+        <div className="w-full overflow-hidden xl:w-[55%] xl:max-w-[713px] xl:shrink-0">
           <img
             src="/images/contact-hero.jpg"
             alt="Salti campaign — portrait holding a single rose"
@@ -14,7 +14,7 @@ export default function Contact() {
           />
         </div>
 
-        <div className="flex flex-1 flex-col items-start gap-12 text-white">
+        <div className="flex min-w-0 flex-1 flex-col items-start gap-12 text-white">
           <h1 className="font-display text-display">Contact us</h1>
           <div className="font-ui text-detail">
             <p>hello@Salti.com</p>

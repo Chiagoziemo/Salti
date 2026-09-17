@@ -1,4 +1,4 @@
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import {
   Button,
   HeroGallery,
@@ -28,29 +28,29 @@ const COLLECTION_ITEMS = [
 
 const FEATURED_PRODUCTS = [
   {
-    image: '/images/product-crewneck.png',
-    alt: 'ORGC Traditions Crewneck, Grey',
+    image: '/images/IMG_0015.jpg',
+    alt: 'Salti campaign — ORGC Traditions Crewneck styling reference',
     title: 'ORGC Traditions Crewneck [Grey]',
     price: '₦40,000',
     href: '/product',
   },
   {
-    image: '/images/product-crewneck.png',
-    alt: 'ORGC Traditions Crewneck, Grey',
+    image: '/images/IMG_0015.jpg',
+    alt: 'Salti campaign — ORGC Traditions Crewneck styling reference',
     title: 'ORGC Traditions Crewneck [Grey]',
     price: '₦40,000',
     href: '/product',
   },
   {
-    image: '/images/product-crewneck.png',
-    alt: 'The Fur Shirt',
+    image: '/images/IMG_0034.jpg',
+    alt: 'Salti campaign — The Fur Shirt styling reference',
     title: 'The Fur Shirt',
     price: '₦40,000',
     href: '/product',
   },
   {
-    image: '/images/product-crewneck.png',
-    alt: 'The Fur Shirt',
+    image: '/images/IMG_0034.jpg',
+    alt: 'Salti campaign — The Fur Shirt styling reference',
     title: 'The Fur Shirt',
     price: '₦40,000',
     href: '/product',
@@ -59,6 +59,7 @@ const FEATURED_PRODUCTS = [
 
 export default function Home() {
   const { theme } = useOutletContext<{ theme: Theme }>();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col">
@@ -69,7 +70,9 @@ export default function Home() {
             <br />
             Salti you are.
           </h1>
-          <Button withArrow>Shop Our Collection</Button>
+          <Button withArrow onClick={() => navigate('/product')}>
+            Shop Our Collection
+          </Button>
         </div>
 
         <HeroGallery images={HERO_IMAGES} viewHref="/product" />
