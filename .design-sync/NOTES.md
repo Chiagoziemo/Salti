@@ -43,8 +43,27 @@
 - `HeroGallery`'s demo images (`public/images/IMG_*.jpg`) are real campaign
   photography from a Drive folder the user shared ("Melody collab"), not
   Figma exports — see the commit that added `public/images/` for
-  provenance. They depict a linen co-ord set, not the "ORGC Traditions
-  Crewneck" product on the Product Page — don't reuse them there.
+  provenance. **Correction**: the folder actually has 100 photos, not 50 —
+  the first pull only surfaced half of them (an anonymous/unauthenticated
+  Drive link cap, not a real limit; the owner's authenticated view showed
+  100). The other 50 (`IMG_0151`–`IMG_0481`, non-sequential) were pulled
+  in a follow-up session via direct per-file share links + curl, since
+  neither the anonymous folder link nor this session's Drive MCP connector
+  (even after adding the folder to My Drive) could enumerate the folder's
+  contents — both capped at the original 50. **The full 100-photo set has
+  4 colorways, not 1**: white/cream (the original 50), plus sage green,
+  black, and rust/caramel co-ords in the second 50. All 4 are the same
+  linen co-ord silhouette, same location/shoot. Only white/cream is used
+  on the site anywhere as of this note — the other 3 colorways are
+  downloaded into `public/images/` but not yet wired into any component.
+- **Update, superseding the line above**: this set was originally kept out
+  of the Product Page's `ProductGallery` since it isn't literally the
+  "ORGC Traditions Crewneck" product. Revisited and reused there anyway
+  (see `demo/pages/Product.tsx`) — user's explicit call, since there's no
+  real crewneck photography to use instead and real lifestyle photography
+  beats the fake stock cutout it replaced, even without a literal product
+  match. Don't treat the original "don't reuse them there" as current
+  guidance; this note is the up-to-date decision.
 - `ProductStepper` and `PlusIcon` were removed (replaced by `SizeSelector` —
   see `../DESIGN_SYSTEM.md` "Product Page") and cleaned up in this sync:
   their remote files were deleted and their stale grade caches pruned

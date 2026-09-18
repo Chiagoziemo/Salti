@@ -14,6 +14,7 @@ export { ProductCard, type ProductCardProps } from './components/ProductCard';
 export { FeaturedProducts, type FeaturedProductsProps } from './components/FeaturedProducts';
 export { BrandStory, type BrandStoryProps } from './components/BrandStory';
 export { AnnouncementBar, type AnnouncementBarProps } from './components/AnnouncementBar';
+export { ColorSwatch, type ColorSwatchProps, type ColorSwatchOption } from './components/ColorSwatch';
 export {
   HomeIcon,
   ShoppingBasketIcon,

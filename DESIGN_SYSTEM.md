@@ -238,11 +238,22 @@ not pixel-exact reproductions of Figma's exported SVGs), and the same
 Pulled from Figma node `70:5606` (Dark theme). Real sampled content: product
 "ORGC Traditions Crewneck [Burgundy]", priced in **Nigerian Naira** (`₦40,000`)
 — consistent with the Home hero's "Free Shipping in Lagos, Nigeria" banner.
+The `[Burgundy]` label was a known Figma/photo mismatch (the sampled photo
+was grey, not burgundy — see `demo/pages/Product.tsx`'s git history) —
+since real color-variant photography exists now (see "Photography"), the
+title is driven by the selected `ColorSwatch` instead of a hardcoded color
+word, and defaults to `[White]`.
 
 - **`ProductGallery`** — a fixed 4-tile masonry (large / two-medium-row /
   large), every tile on a `product-surface` (`#141414`) ground with the
   photo centered and cropped square. The sampled file reuses the same photo
   in all 4 tiles — treat that as placeholder repetition, not a rule.
+- **`ColorSwatch`** — a row of color-variant dots below the description,
+  driving both the gallery images and the title's color word. Not sourced
+  from Figma (the file has no product color-variant UI anywhere); modeled
+  on `ThemeSwitcher`'s dot pattern since it's the closest existing
+  precedent. Selection ring uses `border-current` rather than a hardcoded
+  color so it reads correctly on every site theme.
 - **`SizeSelector`** — **correction**: this was originally built as a
   quantity +/- stepper (`ProductStepper`, since removed). Direct inspection
   of the Product Page showed that's wrong: it's a vertical list of size rows
@@ -257,17 +268,34 @@ Pulled from Figma node `70:5606` (Dark theme). Real sampled content: product
 ## Photography
 
 All photos across the demo now come from the real Drive campaign shoot
-(`public/images/IMG_00xx.jpg`, 50 photos) except `product-crewneck.png`
-(a flat product cutout with no lifestyle equivalent in the shoot).
-`collection-02.jpg`, `collection-03.jpg`, `contact-hero.jpg`, and
-`brand-story.jpg` originally held **unrelated stock photos** (a "TWOTWO"
-branded padel racket/tennis ball, and a generic clothing-rack studio shot)
-that didn't match their own alt text or the brand at all — these have been
-replaced with real campaign shots (`IMG_0091`, `IMG_0017`, `IMG_0009`,
-`IMG_0069` respectively, copied in under their semantic filenames).
-`collection-01.jpg` was already a genuine campaign photo and wasn't
-touched. If more photos are swapped in later, prefer an unused `IMG_00xx`
-file over a new stock image — the shoot has plenty of unused variety.
+(`public/images/IMG_00xx.jpg`) except `product-crewneck.png` (a flat
+product cutout, now unused — see below). `collection-02.jpg`,
+`collection-03.jpg`, `contact-hero.jpg`, and `brand-story.jpg` originally
+held **unrelated stock photos** (a "TWOTWO" branded padel racket/tennis
+ball, and a generic clothing-rack studio shot) that didn't match their own
+alt text or the brand at all — these were replaced with real campaign
+shots, copied in under their semantic filenames. `collection-01.jpg` was
+already a genuine campaign photo and wasn't touched.
+
+**The shoot has 4 real colorways, not 1** — white/cream, sage, black, and
+rust/caramel, all the same co-ord silhouette and location (see
+`.design-sync/NOTES.md` for how the full 100-photo set was recovered; an
+anonymous Drive link only exposed half of it at first). All 4 are wired in
+somewhere: the Product Page's `ColorSwatch` swaps the whole gallery per
+color, and Home's Hero rotation / Collection Grid / Featured Products each
+mix colors instead of showing white in every tile. Only ~12 of the 50
+"new" (sage/black/rust) photos have been individually reviewed and used —
+there's more unreviewed variety in `public/images/` for future picks.
+
+**`HeroGallery`'s `object-top` crop assumes headroom-free framing** — most
+photos are close-ups or standing shots where that holds, but the seated
+ones (subject low in frame, on a low ottoman/couch) crop down to empty
+wall/ceiling at the wide desktop aspect ratio with the default `top`
+focus. Use the per-image `focus` prop (a CSS `object-position` value) to
+override it — see the sage/rust entries in `demo/pages/Home.tsx`'s
+`HERO_IMAGES` for examples. Check any newly-added Hero image at the
+desktop aspect ratio (very short and wide) before assuming `object-top`
+crops it correctly.
 
 ## Responsive behavior
 

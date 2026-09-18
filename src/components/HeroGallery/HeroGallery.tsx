@@ -2,7 +2,19 @@ import { useState } from 'react';
 import { CarouselButton } from '../CarouselButton';
 
 export type HeroGalleryProps = {
-  images: { src: string; alt: string }[];
+  images: {
+    src: string;
+    alt: string;
+    /**
+     * CSS `object-position`, defaulting to `top`. Most campaign photos are
+     * standing/close-up shots where the subject sits near the top of the
+     * frame, so `top` crops correctly; a few are seated with the subject
+     * lower in frame (e.g. on a low ottoman) — those need an explicit
+     * override (e.g. `"center 30%"`) or `object-top` crops down to empty
+     * wall/floor above the subject at the wide desktop aspect ratio.
+     */
+    focus?: string;
+  }[];
   collectionLabel?: string;
   viewHref?: string;
   className?: string;
@@ -38,7 +50,12 @@ export function HeroGallery({ images, collectionLabel = 'Collection 01', viewHre
         .filter(Boolean)
         .join(' ')}
     >
-      <img src={current.src} alt={current.alt} className="absolute inset-0 h-full w-full object-cover object-top" />
+      <img
+        src={current.src}
+        alt={current.alt}
+        className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectPosition: current.focus ?? 'top' }}
+      />
 
       <div className="absolute left-4 top-5 flex flex-col items-center gap-8 text-white sm:left-[43px] sm:top-[58px] sm:gap-16">
         <span className="rotate-90 whitespace-nowrap font-ui text-base sm:text-2xl">{collectionLabel}</span>

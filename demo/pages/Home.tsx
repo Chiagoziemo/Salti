@@ -10,48 +10,55 @@ import {
 } from '../../src';
 import { RouterLink } from '../RouterLink';
 
+// 4 real colorways were found in the full 100-photo Drive folder (white,
+// sage, black, rust — see .design-sync/NOTES.md), so the Hero rotation,
+// Collection Grid, and Featured Products below mix colors instead of
+// showing white/cream in every single tile.
 const HERO_IMAGES = [
-  { src: '/images/IMG_0006.jpg', alt: 'Salti campaign — close portrait with a rose' },
-  { src: '/images/IMG_0005.jpg', alt: 'Salti campaign — walking the hallway in white linen' },
-  { src: '/images/IMG_0075.jpg', alt: 'Salti campaign — seated portrait in cream linen' },
-  { src: '/images/IMG_0092.jpg', alt: 'Salti campaign — detail shot, watch and sunglasses' },
-  { src: '/images/IMG_0118.jpg', alt: 'Salti campaign — both models together' },
+  { src: '/images/IMG_0006.jpg', alt: 'Salti campaign — close portrait with a rose, in white' },
+  { src: '/images/IMG_0005.jpg', alt: 'Salti campaign — walking the hallway, in white' },
+  // Seated shots (subject lower in frame, on a low ottoman/couch) need a
+  // lower focus point — object-top alone crops down to empty wall above
+  // them at the wide desktop aspect ratio. See HeroGallery's `focus` prop.
+  { src: '/images/IMG_0452.jpg', alt: 'Salti campaign — seated portrait, in sage', focus: 'center 65%' },
+  { src: '/images/IMG_0201.jpg', alt: 'Salti campaign — standing portrait, in black', focus: 'center 22%' },
+  { src: '/images/IMG_0188.jpg', alt: 'Salti campaign — seated portrait, in rust', focus: 'center 25%' },
 ];
 
 const MARQUEE_ITEMS = ['Different by Design', 'Natural Fabrics Honest Design', 'Not made to fit in', 'Become the Exception'];
 
 const COLLECTION_ITEMS = [
-  { src: '/images/collection-01.jpg', alt: 'Collection 01 — braided hair, greenery backdrop', href: '/product' },
-  { src: '/images/collection-02.jpg', alt: 'Collection 01 — seated portrait in cream linen, sunglasses in hand', href: '/product' },
-  { src: '/images/collection-03.jpg', alt: 'Collection 01 — walking a marble hallway in white linen', href: '/product' },
+  { src: '/images/collection-01.jpg', alt: 'Collection 01 — braided hair, greenery backdrop, in white', href: '/product' },
+  { src: '/images/collection-02.jpg', alt: 'Collection 01 — standing portrait with a rose, in black', href: '/product' },
+  { src: '/images/collection-03.jpg', alt: 'Collection 01 — seated portrait, in rust', href: '/product' },
 ];
 
 const FEATURED_PRODUCTS = [
   {
     image: '/images/IMG_0015.jpg',
-    alt: 'Salti campaign — ORGC Traditions Crewneck styling reference',
-    title: 'ORGC Traditions Crewneck [Grey]',
+    alt: 'Salti campaign — ORGC Traditions Crewneck styling reference, in white',
+    title: 'ORGC Traditions Crewneck [White]',
     price: '₦40,000',
     href: '/product',
   },
   {
-    image: '/images/IMG_0015.jpg',
-    alt: 'Salti campaign — ORGC Traditions Crewneck styling reference',
-    title: 'ORGC Traditions Crewneck [Grey]',
+    image: '/images/IMG_0469.jpg',
+    alt: 'Salti campaign — ORGC Traditions Crewneck styling reference, in sage',
+    title: 'ORGC Traditions Crewneck [Sage]',
     price: '₦40,000',
     href: '/product',
   },
   {
-    image: '/images/IMG_0034.jpg',
-    alt: 'Salti campaign — The Fur Shirt styling reference',
-    title: 'The Fur Shirt',
+    image: '/images/IMG_0192.jpg',
+    alt: 'Salti campaign — The Fur Shirt styling reference, in black',
+    title: 'The Fur Shirt [Black]',
     price: '₦40,000',
     href: '/product',
   },
   {
-    image: '/images/IMG_0034.jpg',
-    alt: 'Salti campaign — The Fur Shirt styling reference',
-    title: 'The Fur Shirt',
+    image: '/images/IMG_0166.jpg',
+    alt: 'Salti campaign — The Fur Shirt styling reference, in rust',
+    title: 'The Fur Shirt [Rust]',
     price: '₦40,000',
     href: '/product',
   },
