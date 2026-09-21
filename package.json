@@ -19,7 +19,8 @@
   "scripts": {
     "dev": "vite",
     "build:lib": "tsc -p tsconfig.build.json && vite build --config vite.lib.config.ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:demo": "vite build --outDir dist-demo"
   },
   "peerDependencies": {
     "react": "^18.3.0",

@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build:demo"
+  publish = "dist-demo"
+
+# Client-side routing: any path (/product, /cart, ...) serves index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
