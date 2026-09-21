@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Product from './pages/Product';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Cart from './pages/Cart';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="product" element={<Product />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>
     </BrowserRouter>

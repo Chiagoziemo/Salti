@@ -222,6 +222,30 @@ page in Figma — the section order and treatment (reusing `BrandStory`, a
 4-column pillar grid, a `CollectionGrid`-statement-style closing) are this
 build's choices, not sourced ones.
 
+## Cart page
+
+Another page with no Figma source — the file has a "Cart" icon/button on
+every Nav copy, but no cart page/panel design anywhere. `Nav`'s
+`cartCount`/`onCartClick` props existed since Nav was first built but were
+never wired up in the demo (`cartCount={0}`, no click handler) — clicking
+Cart or Add to Cart did nothing. Now:
+
+- Cart state (`demo/cart.ts`: `CartItem[]`, `addToCart`, `removeFromCart`)
+  lives in `Layout` alongside `theme` and is passed the same way, via
+  `Outlet` context (see `OutletContext` exported from `demo/Layout.tsx`).
+  It's in-memory only — refreshing the page clears it, matching a `theme`
+  reset on refresh already.
+- Product Page's "Add to Cart" adds the currently-selected color+size as
+  one line item, keyed by `title-color-size` so distinct variants stack
+  as separate lines and repeat-adding the same variant increments `qty`
+  instead of duplicating a row. Briefly swaps the button label to
+  "Added ✓" as the only feedback (no toast/animation system exists yet).
+- `/cart` (`demo/pages/Cart.tsx`) lists line items with a remove button
+  per row and a subtotal (parsed from each item's formatted `"₦40,000"`
+  price string, since there's no numeric price model elsewhere either).
+  "Checkout" is a real `Button`, not wired to anything — there's no
+  checkout flow to build here, this is a design-system demo, not a store.
+
 ## Contact page
 
 Pulled from `67:5460` (Dark theme only — gold/forest not checked, same gap

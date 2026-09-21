@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { Button, ColorSwatch, ProductGallery, SizeSelector, type Theme } from '../../src';
+import { Button, ColorSwatch, ProductGallery, SizeSelector } from '../../src';
+import type { OutletContext } from '../Layout';
 
 // Real Drive campaign photos standing in for product photography — the
 // Figma source reuses one flat-lay stock cutout across all 4 gallery
@@ -58,9 +59,23 @@ const PRODUCT_COLORS = [
 export default function Product() {
   const [size, setSize] = useState('2XL');
   const [colorKey, setColorKey] = useState(PRODUCT_COLORS[0].key);
-  const { theme } = useOutletContext<{ theme: Theme }>();
+  const [added, setAdded] = useState(false);
+  const { theme, addToCart } = useOutletContext<OutletContext>();
 
   const color = PRODUCT_COLORS.find((c) => c.key === colorKey) ?? PRODUCT_COLORS[0];
+
+  const handleAddToCart = () => {
+    addToCart({
+      key: `ORGC Traditions Crewneck-${color.label}-${size}`,
+      title: `ORGC Traditions Crewneck [${color.label}]`,
+      price: '₦40,000',
+      image: color.gallery.top,
+      color: color.label,
+      size,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   return (
     <div className="flex flex-col gap-10 px-4 pb-10 pt-8 sm:px-6 md:px-10 lg:px-[80px] lg:pb-[55px] lg:pt-[80px] xl:flex-row">
@@ -96,8 +111,8 @@ export default function Product() {
 
         <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-end sm:gap-6">
           <SizeSelector sizes={['S', 'M', 'L', 'XL', '2XL']} value={size} onChange={setSize} />
-          <Button withArrow className="flex-1">
-            Add to Cart
+          <Button withArrow={!added} onClick={handleAddToCart} className="flex-1">
+            {added ? 'Added ✓' : 'Add to Cart'}
           </Button>
         </div>
       </div>
